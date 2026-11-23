@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "skills": {
+    "devvit-docs": {
+      "source": "reddit/devvit-skills",
+      "commit": "c53b3208f8e935882df185385858098fa37bf7b6",
+      "sourceType": "github",
+      "skillPath": "skills/devvit-docs/SKILL.md",
+      "computedHash": "a88eaaa0bc9f79632fd2a2814174b764a4702fe3ca25ae0b25b4ee1816230d5a"
+    },
+    "devvit-text-fallback": {
+      "source": "reddit/devvit-skills",
+      "commit": "c53b3208f8e935882df185385858098fa37bf7b6",
+      "sourceType": "github",
+      "skillPath": "skills/devvit-text-fallback/SKILL.md",
+      "computedHash": "98b84bf07c64c2413ec7cbd313929aecf1ebab95fdf37c4dd5daaa7ced3e1942"
+    }
+  }
+}
