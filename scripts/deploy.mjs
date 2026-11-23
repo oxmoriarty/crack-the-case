@@ -1,6 +1,6 @@
 import { Bundler } from '../node_modules/@devvit/cli/dist/util/Bundler.js';
 import { Project } from '../node_modules/@devvit/cli/dist/util/project.js';
-import { AssetUploader } from '../node_modules/@devvit/cli/dist/util/AssetUploader.js';
+import { AssetUploader, queryAssets } from '../node_modules/@devvit/cli/dist/util/AssetUploader.js';
 import esbuild from '../node_modules/@devvit/build-pack/node_modules/esbuild/lib/main.js';
 import {
   createAppClient,
@@ -34,7 +34,23 @@ async function main() {
     warn: (msg) => console.warn('CMD WARN:', msg),
   };
 
-  console.log('1. Syncing assets and webview files...');
+  console.log('1. Fetching current app details and version history...');
+  const appClient = createAppClient();
+  const appInfo = await appClient.GetBySlug({ slug: 'crack-the-case' });
+  const appId = appInfo.app.id;
+  console.log(`  App ID: ${appId}`);
+
+  let maxPatch = 0;
+  for (const v of appInfo.versions) {
+    if (v.patchVersion && v.patchVersion > maxPatch) {
+      maxPatch = v.patchVersion;
+    }
+  }
+  const nextPatch = maxPatch + 1;
+  const versionStr = `0.0.${nextPatch}`;
+  console.log(`  Next version to create: ${versionStr}`);
+
+  console.log('2. Syncing assets and webview files...');
   let syncAssetsResult;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
@@ -51,7 +67,24 @@ async function main() {
 
   console.log('Assets synced:');
   console.log('  Media Assets:', syncAssetsResult.assetMap || {});
-  console.log('  WebView Assets:', syncAssetsResult.webViewAssetMap || {});
+  console.log('  Raw WebView Assets:', syncAssetsResult.webViewAssetMap || {});
+
+  // Devvit CLI has a known bug where existing webview assets get returned as Media Service UUIDs
+  // instead of S3 URLs. Normalize any non-URL entries to their exact S3 asset paths:
+  const clientAssets = await queryAssets('dist/client', [], 'Client', '0.15.4', false);
+  const assetByPath = new Map(clientAssets.map((a) => [a.filePath, a]));
+  for (const [filePath, val] of Object.entries(syncAssetsResult.webViewAssetMap || {})) {
+    if (!val.startsWith('http')) {
+      const a = assetByPath.get(filePath);
+      if (a) {
+        const s3Url = `https://reddit-service-devvit-webview-assets.s3.us-east-1.amazonaws.com/${appId}/${a.hash}`;
+        syncAssetsResult.webViewAssetMap[filePath] = s3Url;
+        console.log(`  Normalized ${filePath} from UUID to S3 URL: ${s3Url}`);
+      }
+    }
+  }
+
+  console.log('  Final WebView Assets:', syncAssetsResult.webViewAssetMap || {});
 
   if (!syncAssetsResult.webViewAssetMap?.['splash.html']) {
     throw new Error('splash.html missing from webviewAssetMap!');
@@ -59,22 +92,6 @@ async function main() {
   if (!syncAssetsResult.webViewAssetMap?.['game.html']) {
     throw new Error('game.html missing from webviewAssetMap!');
   }
-
-  console.log('2. Fetching current app details and version history...');
-  const appClient = createAppClient();
-  const appInfo = await appClient.GetBySlug({ slug: 'crack-the-case' });
-  const appId = appInfo.app.id;
-  console.log(`  App ID: ${appId}`);
-
-  let maxPatch = 0;
-  for (const v of appInfo.versions) {
-    if (v.patchVersion && v.patchVersion > maxPatch) {
-      maxPatch = v.patchVersion;
-    }
-  }
-  const nextPatch = maxPatch + 1;
-  const versionStr = `0.0.${nextPatch}`;
-  console.log(`  Next version to create: ${versionStr}`);
 
   console.log('3. Bundling actor...');
   const bundler = new Bundler();
