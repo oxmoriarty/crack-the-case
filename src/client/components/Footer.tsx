@@ -30,11 +30,10 @@ export const Footer = ({ currentScreen, onNavigate }: FooterProps) => {
                 : 'text-[#455653] hover:text-[#173B3A]'
             }`}
           >
-            <span className={`transition-transform ${isActive ? 'scale-115' : ''}`}>
+            <span className={`transition-transform ${isActive ? 'scale-110' : 'opacity-80'}`}>
               <GameIcon
                 name={tab.icon}
-                size="sm"
-                className={isActive ? 'text-[#087E78]' : 'text-[#455653]'}
+                size="md"
               />
             </span>
             <span className="text-[11px] tracking-tight">{tab.label}</span>

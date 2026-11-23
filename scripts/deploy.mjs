@@ -7,10 +7,20 @@ import {
   createAppVersionClient,
   createInstallationsClient,
 } from '../node_modules/@devvit/cli/dist/util/clientGenerators.js';
+import { getAccessToken, getOAuthSvc } from '../node_modules/@devvit/cli/dist/util/auth.js';
 import { ACTOR_SRC_PRIMARY_NAME } from '@devvit/shared-types/constants.js';
 
 async function main() {
   console.log('--- CRACK THE CASE: DEPLOY SCRIPT ---');
+
+  console.log('0. Refreshing Reddit Devvit authentication token...');
+  const authSvc = getOAuthSvc();
+  const tokenInfo = await authSvc.authTokenStore.readFSToken();
+  if (!tokenInfo) {
+    throw new Error('No saved Devvit token found. Please run npx devvit login.');
+  }
+  await authSvc.refreshStoredToken(tokenInfo.token.refreshToken, Boolean(tokenInfo.copyPaste));
+  console.log('  Token refreshed and valid!');
 
   const project = await Project.new('.', 'devvit.json');
   const fakeCmd = {
@@ -20,8 +30,19 @@ async function main() {
   };
 
   console.log('1. Syncing assets and webview files...');
-  const assetUploader = new AssetUploader(fakeCmd, 'crack-the-case', { verbose: true });
-  const syncAssetsResult = await assetUploader.syncAssets();
+  let syncAssetsResult;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const assetUploader = new AssetUploader(fakeCmd, 'crack-the-case', { verbose: true });
+      syncAssetsResult = await assetUploader.syncAssets();
+      if (syncAssetsResult) break;
+    } catch (syncErr) {
+      console.warn(`  Asset sync attempt ${attempt} failed: ${syncErr.message}`);
+      if (attempt === 3) throw syncErr;
+      console.log('  Retrying asset sync in 2 seconds...');
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  }
 
   console.log('Assets synced:');
   console.log('  Media Assets:', syncAssetsResult.assetMap || {});
@@ -76,6 +97,11 @@ async function main() {
   console.log(`  Actor webviewAssetIds:`, bundles[0].webviewAssetIds);
 
   console.log('4. Creating App Version on Reddit...');
+  const currentToken = await getAccessToken();
+  if (!currentToken) {
+    throw new Error('Not authenticated! Please ensure devvit token is valid.');
+  }
+  console.log('  Authentication verified with token.');
   const appVersionClient = createAppVersionClient();
   const createdVersion = await appVersionClient.Create({
     appId,
