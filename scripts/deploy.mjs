@@ -1,0 +1,117 @@
+import { Bundler } from '../node_modules/@devvit/cli/dist/util/Bundler.js';
+import { Project } from '../node_modules/@devvit/cli/dist/util/project.js';
+import { AssetUploader } from '../node_modules/@devvit/cli/dist/util/AssetUploader.js';
+import esbuild from '../node_modules/@devvit/build-pack/node_modules/esbuild/lib/main.js';
+import {
+  createAppClient,
+  createAppVersionClient,
+  createInstallationsClient,
+} from '../node_modules/@devvit/cli/dist/util/clientGenerators.js';
+import { ACTOR_SRC_PRIMARY_NAME } from '@devvit/shared-types/constants.js';
+
+async function main() {
+  console.log('--- CRACK THE CASE: DEPLOY SCRIPT ---');
+
+  const project = await Project.new('.', 'devvit.json');
+  const fakeCmd = {
+    project,
+    error: (msg) => console.error('CMD ERROR:', msg),
+    warn: (msg) => console.warn('CMD WARN:', msg),
+  };
+
+  console.log('1. Syncing assets and webview files...');
+  const assetUploader = new AssetUploader(fakeCmd, 'crack-the-case', { verbose: true });
+  const syncAssetsResult = await assetUploader.syncAssets();
+
+  console.log('Assets synced:');
+  console.log('  Media Assets:', syncAssetsResult.assetMap || {});
+  console.log('  WebView Assets:', syncAssetsResult.webViewAssetMap || {});
+
+  if (!syncAssetsResult.webViewAssetMap?.['splash.html']) {
+    throw new Error('splash.html missing from webviewAssetMap!');
+  }
+  if (!syncAssetsResult.webViewAssetMap?.['game.html']) {
+    throw new Error('game.html missing from webviewAssetMap!');
+  }
+
+  console.log('2. Fetching current app details and version history...');
+  const appClient = createAppClient();
+  const appInfo = await appClient.GetBySlug({ slug: 'crack-the-case' });
+  const appId = appInfo.app.id;
+  console.log(`  App ID: ${appId}`);
+
+  let maxPrerelease = 0;
+  for (const v of appInfo.versions) {
+    if (v.prereleaseVersion && v.prereleaseVersion > maxPrerelease) {
+      maxPrerelease = v.prereleaseVersion;
+    }
+  }
+  const nextPrerelease = maxPrerelease + 1;
+  const versionStr = `0.0.0-prerelease.${nextPrerelease}`;
+  console.log(`  Next version to create: ${versionStr}`);
+
+  console.log('3. Bundling actor...');
+  const bundler = new Bundler();
+  const actorSpec = {
+    name: ACTOR_SRC_PRIMARY_NAME,
+    owner: appInfo.app.owner.displayName,
+    version: versionStr,
+  };
+  const bundles = await bundler.bundle(project, actorSpec);
+  for (const b of bundles) {
+    b.assetIds = syncAssetsResult.assetMap || {};
+    b.webviewAssetIds = syncAssetsResult.webViewAssetMap || {};
+    // Strip large development source maps to fit within API payload budget
+    b.sourceMap = '';
+    if (b.server) {
+      b.server.sourceMap = '';
+    }
+    // Minify actor code with esbuild for clean and compact transport
+    const minActor = await esbuild.transform(b.code, { minify: true });
+    b.code = minActor.code;
+  }
+  console.log(`  Bundles prepared: ${bundles.length}`);
+  console.log(`  Actor code size: ${bundles[0].code.length} bytes`);
+  console.log(`  Server code size: ${bundles[0].server?.code?.length || 0} bytes`);
+  console.log(`  Actor webviewAssetIds:`, bundles[0].webviewAssetIds);
+
+  console.log('4. Creating App Version on Reddit...');
+  const appVersionClient = createAppVersionClient();
+  const createdVersion = await appVersionClient.Create({
+    appId,
+    visibility: 1,
+    majorVersion: 0,
+    minorVersion: 0,
+    patchVersion: 0,
+    prereleaseVersion: nextPrerelease,
+    actorBundles: bundles,
+    validInstallTypes: [1],
+    devvitJson: JSON.stringify(project.appConfig),
+  });
+  console.log(`  Version created successfully! ID: ${createdVersion.id}`);
+
+  console.log('5. Upgrading installation in subreddit...');
+  const installationsClient = createInstallationsClient();
+  const instList = await installationsClient.GetAllWithApp({ id: appId });
+  if (!instList.installations || instList.installations.length === 0) {
+    throw new Error('No installations found for crack-the-case!');
+  }
+  const targetInstallation = instList.installations[0].installation;
+  console.log(`  Found installation in r/${targetInstallation.location.name} (ID: ${targetInstallation.id})`);
+
+  const upgradeRes = await installationsClient.Upgrade({
+    id: targetInstallation.id,
+    appVersionId: createdVersion.id,
+  });
+  console.log('  Upgrade complete! Target appInstallState:', upgradeRes.installation?.appInstallState);
+
+  console.log('--------------------------------------------------');
+  console.log(`DEPLOYMENT SUCCESSFUL! Version: ${versionStr} (ID: ${createdVersion.id})`);
+  console.log(`Target Subreddit: r/${targetInstallation.location.name}`);
+  console.log('--------------------------------------------------');
+}
+
+main().catch((err) => {
+  console.error('FATAL DEPLOYMENT ERROR:', err);
+  process.exit(1);
+});
