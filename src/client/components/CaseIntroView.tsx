@@ -1,4 +1,5 @@
 import type { CaseData } from '../../shared/cases/cases';
+import { GameIcon } from './ui/GameIcon';
 
 interface CaseIntroViewProps {
   caseData: CaseData;
@@ -31,7 +32,7 @@ export const CaseIntroView = ({
       {/* Incident Box */}
       <div className="mb-4 rounded-2xl border border-[#E8DCC8] bg-white p-5 shadow-xs">
         <div className="mb-2 flex items-center gap-2">
-          <span className="text-base">🚨</span>
+          <GameIcon name="siren" size="sm" className="text-[#F07868]" />
           <h3 className="text-xs font-black uppercase tracking-wider text-[#087E78]">
             The Incident
           </h3>
@@ -44,7 +45,7 @@ export const CaseIntroView = ({
       {/* Detective Briefing Commentary */}
       <div className="mb-6 rounded-2xl border border-[#E8DCC8]/60 bg-[#FFFAF2] p-4 text-xs">
         <div className="mb-1 flex items-center gap-2 text-[#087E78] font-bold">
-          <span>🧐</span>
+          <GameIcon name="fedora" size="sm" className="text-[#087E78]" />
           <span>Detective's Briefing</span>
         </div>
         <p className="leading-relaxed text-[#455653]">
@@ -61,11 +62,13 @@ export const CaseIntroView = ({
       >
         {isStarting ? (
           <span className="flex items-center gap-2">
-            <span className="animate-spin">⏳</span> Opening Evidence Dossier...
+            <GameIcon name="refresh" size="sm" className="animate-spin text-white" />
+            <span>Opening Evidence Dossier...</span>
           </span>
         ) : (
           <span className="flex items-center gap-2">
-            <span>🔎</span> Begin Investigation
+            <GameIcon name="magnifier" size="sm" className="text-white" />
+            <span>Begin Investigation</span>
           </span>
         )}
       </button>

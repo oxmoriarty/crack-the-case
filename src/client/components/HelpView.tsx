@@ -1,3 +1,5 @@
+import { GameIcon } from './ui/GameIcon';
+
 interface HelpViewProps {
   onBack: () => void;
 }
@@ -22,7 +24,7 @@ export const HelpView = ({ onBack }: HelpViewProps) => {
         {/* Section 1: How to Play */}
         <section className="rounded-2xl border border-[#E8DCC8] bg-white p-5 shadow-xs">
           <div className="mb-2 flex items-center gap-2">
-            <span className="text-base">🔎</span>
+            <GameIcon name="magnifier" size="sm" className="text-[#087E78]" />
             <h3 className="text-sm font-black text-[#087E78]">1. How to Play</h3>
           </div>
           <p className="leading-relaxed text-[#455653]">
@@ -33,7 +35,7 @@ export const HelpView = ({ onBack }: HelpViewProps) => {
         {/* Section 2: Understanding Clues */}
         <section className="rounded-2xl border border-[#E8DCC8] bg-white p-5 shadow-xs">
           <div className="mb-2 flex items-center gap-2">
-            <span className="text-base">📌</span>
+            <GameIcon name="pin" size="sm" className="text-[#087E78]" />
             <h3 className="text-sm font-black text-[#087E78]">2. Understanding Clues</h3>
           </div>
           <p className="leading-relaxed text-[#455653]">
@@ -44,7 +46,7 @@ export const HelpView = ({ onBack }: HelpViewProps) => {
         {/* Section 3: Hints */}
         <section className="rounded-2xl border border-[#E8DCC8] bg-white p-5 shadow-xs">
           <div className="mb-2 flex items-center gap-2">
-            <span className="text-base">💡</span>
+            <GameIcon name="lightbulb" size="sm" className="text-[#087E78]" />
             <h3 className="text-sm font-black text-[#087E78]">3. Detective Hints</h3>
           </div>
           <p className="leading-relaxed text-[#455653]">
@@ -55,7 +57,7 @@ export const HelpView = ({ onBack }: HelpViewProps) => {
         {/* Section 4: Scoring and Streaks */}
         <section className="rounded-2xl border border-[#E8DCC8] bg-white p-5 shadow-xs">
           <div className="mb-2 flex items-center gap-2">
-            <span className="text-base">⚖️</span>
+            <GameIcon name="scale" size="sm" className="text-[#087E78]" />
             <h3 className="text-sm font-black text-[#087E78]">4. Scoring & Streaks</h3>
           </div>
           <p className="leading-relaxed text-[#455653]">
@@ -66,7 +68,7 @@ export const HelpView = ({ onBack }: HelpViewProps) => {
         {/* Section 5: Daily Cases */}
         <section className="rounded-2xl border border-[#E8DCC8] bg-white p-5 shadow-xs">
           <div className="mb-2 flex items-center gap-2">
-            <span className="text-base">🗓️</span>
+            <GameIcon name="calendar" size="sm" className="text-[#087E78]" />
             <h3 className="text-sm font-black text-[#087E78]">5. Daily Reset</h3>
           </div>
           <p className="leading-relaxed text-[#455653]">

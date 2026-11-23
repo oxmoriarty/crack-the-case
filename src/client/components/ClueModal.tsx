@@ -1,4 +1,5 @@
 import type { Clue } from '../../shared/cases/cases';
+import { GameIcon } from './ui/GameIcon';
 
 interface ClueModalProps {
   clue: Clue | null;
@@ -19,7 +20,7 @@ export const ClueModal = ({ clue, onClose }: ClueModalProps) => {
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#087E78]/10 text-base">
-              🔍
+              <GameIcon name="magnifier" size="sm" className="text-[#087E78]" />
             </span>
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#087E78]">
@@ -33,7 +34,7 @@ export const ClueModal = ({ clue, onClose }: ClueModalProps) => {
             onClick={onClose}
             className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#E8DCC8]/60 text-sm font-bold text-[#455653] hover:bg-[#E8DCC8]"
           >
-            ✕
+            <GameIcon name="cross" size="xs" className="text-[#455653]" />
           </button>
         </div>
 

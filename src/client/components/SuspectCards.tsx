@@ -1,4 +1,5 @@
 import type { Suspect } from '../../shared/cases/cases';
+import { GameIcon } from './ui/GameIcon';
 
 interface SuspectCardsProps {
   suspects: readonly Suspect[];
@@ -10,7 +11,7 @@ export const SuspectCards = ({ suspects }: SuspectCardsProps) => {
       {/* Header */}
       <div className="mb-4 flex items-center justify-between border-b border-[#E8DCC8] pb-2">
         <div className="flex items-center gap-2">
-          <span className="text-xl">👥</span>
+          <GameIcon name="users" size="md" className="text-[#087E78]" />
           <div>
             <h2 className="text-base font-black tracking-tight text-[#173B3A]">
               Suspect Statements
@@ -34,8 +35,8 @@ export const SuspectCards = ({ suspects }: SuspectCardsProps) => {
           >
             {/* Suspect Info Header */}
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E0F2F1] border border-[#087E78]/20 text-2xl">
-                👤
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E0F2F1] border border-[#087E78]/20">
+                <GameIcon name="user" size="md" className="text-[#087E78]" />
               </div>
               <div className="min-w-0 flex-1">
                 <h3 className="truncate text-base font-black text-[#173B3A]">

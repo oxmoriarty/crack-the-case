@@ -1,4 +1,5 @@
 import type { CaseData, CaseSessionStatus, PlayerProfile, Screen } from '../../shared/types';
+import { GameIcon } from './ui/GameIcon';
 
 interface HomeScreenProps {
   activeCase: CaseData;
@@ -43,8 +44,8 @@ export const HomeScreen = ({
       {/* Header with Brand and Help */}
       <div className="flex items-center justify-between border-b border-[#E8DCC8] pb-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#087E78] text-2xl shadow-sm">
-            🔍
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#087E78] shadow-sm">
+            <GameIcon name="magnifier" size="md" className="text-white" />
           </div>
           <div>
             <h1 className="text-xl font-black tracking-tight text-[#173B3A]">
@@ -62,15 +63,15 @@ export const HomeScreen = ({
           className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#E8DCC8] bg-white text-sm font-bold text-[#455653] shadow-2xs hover:border-[#087E78]"
           title="Help & Rules"
         >
-          ?
+          <GameIcon name="help" size="sm" className="text-[#455653]" />
         </button>
       </div>
 
       {/* Player Career Card */}
       <div className="my-4 flex items-center justify-between rounded-2xl border border-[#E8DCC8] bg-white p-4 shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFF5E6] border border-[#E8DCC8] text-2xl">
-            🕵️
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFF5E6] border border-[#E8DCC8]">
+            <GameIcon name="fedora" size="md" className="text-[#087E78]" />
           </div>
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#087E78]">
@@ -84,8 +85,11 @@ export const HomeScreen = ({
 
         <div className="flex flex-col items-end">
           <span className="text-[10px] font-bold text-[#455653]">Current Streak</span>
-          <span className="text-base font-black text-[#F07868]">
-            🔥 {profile.currentStreak} {profile.currentStreak === 1 ? 'day' : 'days'}
+          <span className="flex items-center gap-1 text-base font-black text-[#F07868]">
+            <GameIcon name="flame" size="sm" className="text-[#F07868]" />
+            <span>
+              {profile.currentStreak} {profile.currentStreak === 1 ? 'day' : 'days'}
+            </span>
           </span>
         </div>
       </div>
@@ -128,25 +132,28 @@ export const HomeScreen = ({
             <button
               type="button"
               onClick={onViewResults}
-              className="flex h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-[#087E78] font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
+              className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#087E78] font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
             >
-              <span className="mr-2">🏆</span> View Results
+              <GameIcon name="trophy" size="sm" className="text-white" />
+              <span>View Results</span>
             </button>
           ) : caseStatus === 'in_progress' ? (
             <button
               type="button"
               onClick={onStartOrResumeCase}
-              className="flex h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-[#E9B949] font-bold text-[#173B3A] shadow-md hover:bg-[#D4A338] active:scale-98"
+              className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#E9B949] font-bold text-[#173B3A] shadow-md hover:bg-[#D4A338] active:scale-98"
             >
-              <span className="mr-2">🔎</span> Resume Case
+              <GameIcon name="magnifier" size="sm" className="text-[#173B3A]" />
+              <span>Resume Case</span>
             </button>
           ) : (
             <button
               type="button"
               onClick={onStartOrResumeCase}
-              className="flex h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-[#087E78] font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
+              className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#087E78] font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
             >
-              <span className="mr-2">🔎</span> Solve Case
+              <GameIcon name="magnifier" size="sm" className="text-white" />
+              <span>Solve Case</span>
             </button>
           )}
         </div>
@@ -159,7 +166,7 @@ export const HomeScreen = ({
           onClick={() => onNavigate('leaderboard')}
           className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-[#E8DCC8] bg-white p-3 text-center shadow-2xs hover:border-[#087E78] active:scale-95"
         >
-          <span className="text-xl">📊</span>
+          <GameIcon name="trophy" size="md" className="text-[#087E78]" />
           <span className="mt-1 text-xs font-bold text-[#173B3A]">Leaderboard</span>
         </button>
 
@@ -168,7 +175,7 @@ export const HomeScreen = ({
           onClick={() => onNavigate('stats')}
           className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-[#E8DCC8] bg-white p-3 text-center shadow-2xs hover:border-[#087E78] active:scale-95"
         >
-          <span className="text-xl">👤</span>
+          <GameIcon name="chart" size="md" className="text-[#087E78]" />
           <span className="mt-1 text-xs font-bold text-[#173B3A]">My Stats</span>
         </button>
 
@@ -177,7 +184,7 @@ export const HomeScreen = ({
           onClick={() => onNavigate('help')}
           className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-[#E8DCC8] bg-white p-3 text-center shadow-2xs hover:border-[#087E78] active:scale-95"
         >
-          <span className="text-xl">📖</span>
+          <GameIcon name="help" size="md" className="text-[#087E78]" />
           <span className="mt-1 text-xs font-bold text-[#173B3A]">How to Play</span>
         </button>
       </div>

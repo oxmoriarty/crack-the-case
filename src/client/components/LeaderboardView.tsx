@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { PlayerProfile } from '../../shared/types';
+import { GameIcon } from './ui/GameIcon';
 
 interface LeaderboardViewProps {
   profile: PlayerProfile;
@@ -66,8 +67,8 @@ export const LeaderboardView = ({
       {/* Current Player Rank Card */}
       <div className="mb-5 flex items-center justify-between rounded-2xl border-2 border-[#087E78] bg-[#E0F2F1] p-4 shadow-xs">
         <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#087E78] font-mono text-xs font-bold text-white">
-            ★
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#087E78] text-white">
+            <GameIcon name="star" size="xs" className="text-white" />
           </span>
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#087E78]">
@@ -91,7 +92,9 @@ export const LeaderboardView = ({
 
       {/* Top 100 List Placeholder (Phase 1 Stub) */}
       <div className="rounded-2xl border border-[#E8DCC8] bg-white p-5 text-center shadow-xs">
-        <span className="text-3xl">🏆</span>
+        <div className="flex justify-center">
+          <GameIcon name="trophy" size="xl" className="text-[#E9B949]" />
+        </div>
         <h4 className="mt-2 text-sm font-black text-[#173B3A]">
           {activeTab === 'daily'
             ? `Case #${caseNumber} Daily Leaderboard`

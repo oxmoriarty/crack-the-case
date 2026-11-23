@@ -1,3 +1,5 @@
+import { GameIcon } from './ui/GameIcon';
+
 interface HintModalProps {
   hintText: string;
   isOpen: boolean;
@@ -11,8 +13,8 @@ export const HintModal = ({ hintText, isOpen, onClose }: HintModalProps) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
       <div className="w-full max-w-sm rounded-2xl border-2 border-[#E9B949] bg-[#FFF5E6] p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E9B949]/30 text-xl">
-            💡
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E9B949]/30">
+            <GameIcon name="lightbulb" size="md" className="text-[#856404]" />
           </div>
           <div>
             <h3 className="text-base font-bold text-[#173B3A]">Detective's Hint</h3>

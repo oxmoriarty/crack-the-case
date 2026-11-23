@@ -1,5 +1,6 @@
 import type { PlayerProfile } from '../../shared/types';
 import { ACHIEVEMENTS, getNextRank } from '../../shared/config';
+import { GameIcon } from './ui/GameIcon';
 
 interface StatsViewProps {
   profile: PlayerProfile;
@@ -36,8 +37,8 @@ export const StatsView = ({ profile, onBack }: StatsViewProps) => {
 
       {/* Profile Card */}
       <div className="mb-5 flex flex-col items-center rounded-2xl border border-[#E8DCC8] bg-white p-5 text-center shadow-xs">
-        <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#087E78] text-3xl shadow-sm">
-          🕵️
+        <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#087E78] shadow-sm">
+          <GameIcon name="fedora" size="lg" className="text-white" />
         </div>
         <h3 className="text-lg font-black text-[#173B3A]">{profile.username}</h3>
         <span className="mt-0.5 rounded-full bg-[#E0F2F1] px-3 py-0.5 text-xs font-bold text-[#087E78]">
@@ -78,8 +79,9 @@ export const StatsView = ({ profile, onBack }: StatsViewProps) => {
 
         <div className="rounded-xl border border-[#E8DCC8] bg-white p-3 text-center shadow-2xs">
           <span className="text-[10px] font-bold text-[#455653]">Current Streak</span>
-          <p className="text-xl font-black text-[#F07868]">
-            🔥 {profile.currentStreak}
+          <p className="flex items-center justify-center gap-1 text-xl font-black text-[#F07868]">
+            <GameIcon name="flame" size="xs" className="text-[#F07868]" />
+            <span>{profile.currentStreak}</span>
           </p>
         </div>
 
@@ -125,11 +127,15 @@ export const StatsView = ({ profile, onBack }: StatsViewProps) => {
               }`}
             >
               <div
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xl ${
-                  isUnlocked ? 'bg-[#E9B949]/30' : 'bg-gray-100 grayscale'
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
+                  isUnlocked ? 'bg-[#E9B949]/30' : 'bg-gray-100'
                 }`}
               >
-                {isUnlocked ? '🎖️' : '🔒'}
+                {isUnlocked ? (
+                  <GameIcon name="badge" size="sm" className="text-[#856404]" />
+                ) : (
+                  <GameIcon name="lock" size="sm" className="text-gray-400" />
+                )}
               </div>
               <div>
                 <h4

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { SolveResult, PlayerProfile, Screen } from '../../shared/types';
 import { ACHIEVEMENTS, getNextRank } from '../../shared/config';
+import { GameIcon } from './ui/GameIcon';
 
 interface ResultsViewProps {
   caseTitle: string;
@@ -28,8 +29,8 @@ export const ResultsView = ({
     <div className="flex w-full flex-col p-4 pb-10">
       {/* Header Banner */}
       <div className="flex flex-col items-center text-center">
-        <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#087E78] text-3xl shadow-md">
-          🏆
+        <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#087E78] shadow-md">
+          <GameIcon name="trophy" size="xl" className="text-white" />
         </div>
         <h2 className="text-2xl font-black tracking-tight text-[#173B3A]">
           CASE SOLVED!
@@ -55,8 +56,9 @@ export const ResultsView = ({
             <span className="text-xs font-bold text-[#455653]">/ 100</span>
           </div>
           {result.score === 100 && (
-            <span className="mt-1 rounded-full bg-[#E0F2F1] px-2 py-0.5 text-[10px] font-extrabold text-[#087E78]">
-              ★ Perfect Deduction
+            <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-[#E0F2F1] px-2 py-0.5 text-[10px] font-extrabold text-[#087E78]">
+              <GameIcon name="star" size="xs" className="text-[#087E78]" />
+              <span>Perfect Deduction</span>
             </span>
           )}
         </div>
@@ -71,8 +73,9 @@ export const ResultsView = ({
             </span>
             <span className="text-xs font-bold text-[#455653]">XP</span>
           </div>
-          <span className="mt-1 text-[11px] font-bold text-[#F07868]">
-            🔥 {profile.currentStreak} Day Streak
+          <span className="mt-1 inline-flex items-center gap-1 text-[11px] font-bold text-[#F07868]">
+            <GameIcon name="flame" size="xs" className="text-[#F07868]" />
+            <span>{profile.currentStreak} Day Streak</span>
           </span>
         </div>
       </div>
@@ -100,8 +103,8 @@ export const ResultsView = ({
       {/* Newly Unlocked Achievement (if any) */}
       {newlyUnlockedMeta && (
         <div className="mb-4 flex items-center gap-3 rounded-2xl border-2 border-[#E9B949] bg-[#FFF5E6] p-4 shadow-xs animate-in zoom-in-95 duration-150">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E9B949] text-2xl shadow-xs">
-            🎖️
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E9B949] shadow-xs">
+            <GameIcon name="badge" size="md" className="text-[#856404]" />
           </div>
           <div>
             <span className="text-[10px] font-black uppercase tracking-wider text-[#856404]">
@@ -120,7 +123,7 @@ export const ResultsView = ({
       {/* Authoritative Solution Breakdown */}
       <div className="mb-5 rounded-2xl border border-[#E8DCC8] bg-white p-5 shadow-xs">
         <div className="mb-3 flex items-center gap-2 border-b border-[#E8DCC8] pb-2">
-          <span className="text-lg">📖</span>
+          <GameIcon name="case-file" size="sm" className="text-[#087E78]" />
           <h3 className="text-sm font-black uppercase tracking-wider text-[#087E78]">
             Official Case Solution
           </h3>
@@ -140,12 +143,14 @@ export const ResultsView = ({
               {result.decisiveClueTitle}
             </span>
             {result.isClueCorrect ? (
-              <span className="ml-2 rounded-md bg-[#E0F2F1] px-1.5 py-0.5 text-[10px] font-bold text-[#087E78]">
-                ✓ Identified
+              <span className="ml-2 inline-flex items-center gap-1 rounded-md bg-[#E0F2F1] px-1.5 py-0.5 text-[10px] font-bold text-[#087E78]">
+                <GameIcon name="check" size="xs" className="text-[#087E78]" />
+                <span>Identified</span>
               </span>
             ) : (
-              <span className="ml-2 rounded-md bg-[#FCE8E6] px-1.5 py-0.5 text-[10px] font-bold text-[#F07868]">
-                Missed
+              <span className="ml-2 inline-flex items-center gap-1 rounded-md bg-[#FCE8E6] px-1.5 py-0.5 text-[10px] font-bold text-[#F07868]">
+                <GameIcon name="cross" size="xs" className="text-[#F07868]" />
+                <span>Missed</span>
               </span>
             )}
           </div>
@@ -161,41 +166,46 @@ export const ResultsView = ({
         <button
           type="button"
           onClick={() => onNavigate('leaderboard')}
-          className="flex h-11 cursor-pointer items-center justify-center rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#173B3A] shadow-xs hover:border-[#087E78] active:scale-98"
+          className="flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#173B3A] shadow-xs hover:border-[#087E78] active:scale-98"
         >
-          📊 Leaderboard
+          <GameIcon name="chart" size="xs" className="text-[#087E78]" />
+          <span>Leaderboard</span>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('stats')}
-          className="flex h-11 cursor-pointer items-center justify-center rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#173B3A] shadow-xs hover:border-[#087E78] active:scale-98"
+          className="flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#173B3A] shadow-xs hover:border-[#087E78] active:scale-98"
         >
-          👤 My Stats
+          <GameIcon name="user" size="xs" className="text-[#087E78]" />
+          <span>My Stats</span>
         </button>
 
         <button
           type="button"
           onClick={() => setShowShareModal(true)}
-          className="flex h-11 cursor-pointer items-center justify-center rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#087E78] shadow-xs hover:bg-[#E0F2F1] active:scale-98"
+          className="flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#087E78] shadow-xs hover:bg-[#E0F2F1] active:scale-98"
         >
-          📤 Share Result
+          <GameIcon name="share" size="xs" className="text-[#087E78]" />
+          <span>Share Result</span>
         </button>
 
         <button
           type="button"
           onClick={onDiscuss}
-          className="flex h-11 cursor-pointer items-center justify-center rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#F07868] shadow-xs hover:bg-[#FCE8E6] active:scale-98"
+          className="flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-[#E8DCC8] bg-white text-xs font-bold text-[#F07868] shadow-xs hover:bg-[#FCE8E6] active:scale-98"
         >
-          💬 Discuss Case
+          <GameIcon name="chat" size="xs" className="text-[#F07868]" />
+          <span>Discuss Case</span>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('home')}
-          className="col-span-2 flex h-12 cursor-pointer items-center justify-center rounded-xl bg-[#087E78] text-sm font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
+          className="col-span-2 flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#087E78] text-sm font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
         >
-          🏠 Return to Home
+          <GameIcon name="home" size="sm" className="text-white" />
+          <span>Return to Home</span>
         </button>
       </div>
 

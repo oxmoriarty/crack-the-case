@@ -18,6 +18,7 @@ import { StatsView } from './components/StatsView';
 import { LeaderboardView } from './components/LeaderboardView';
 import { HelpView } from './components/HelpView';
 import { HintModal } from './components/HintModal';
+import { GameIcon } from './components/ui/GameIcon';
 
 export const App = () => {
   const [initData, setInitData] = useState<InitResponse | null>(null);
@@ -199,8 +200,8 @@ export const App = () => {
   if (isLoading) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center justify-center bg-[#FFF5E6] p-6 text-center select-none">
-        <div className="relative mb-3 flex h-16 w-16 animate-bounce items-center justify-center rounded-2xl bg-[#087E78] text-3xl shadow-md">
-          🔍
+        <div className="relative mb-3 flex h-16 w-16 animate-bounce items-center justify-center rounded-2xl bg-[#087E78] shadow-md">
+          <GameIcon name="magnifier" size="lg" className="text-white" />
         </div>
         <h2 className="text-lg font-black tracking-tight text-[#173B3A]">
           CRACK THE CASE
@@ -216,8 +217,10 @@ export const App = () => {
   if (errorMsg || !initData) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center justify-center bg-[#FFF5E6] p-6 text-center">
-        <span className="text-4xl">⚠️</span>
-        <h2 className="mt-3 text-lg font-bold text-[#173B3A]">
+        <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FCE8E6]">
+          <GameIcon name="siren" size="lg" className="text-[#F07868]" />
+        </div>
+        <h2 className="mt-1 text-lg font-bold text-[#173B3A]">
           Connection Notice
         </h2>
         <p className="mt-1 max-w-xs text-xs text-[#455653]">

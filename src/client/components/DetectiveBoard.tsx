@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Clue } from '../../shared/cases/cases';
 import { ClueModal } from './ClueModal';
+import { GameIcon } from './ui/GameIcon';
 
 interface DetectiveBoardProps {
   clues: readonly Clue[];
@@ -14,7 +15,7 @@ export const DetectiveBoard = ({ clues }: DetectiveBoardProps) => {
       {/* Board Header */}
       <div className="mb-4 flex items-center justify-between border-b border-[#E8DCC8] pb-2">
         <div className="flex items-center gap-2">
-          <span className="text-xl">📌</span>
+          <GameIcon name="pin" size="md" className="text-[#F07868]" />
           <div>
             <h2 className="text-base font-black tracking-tight text-[#173B3A]">
               Detective Board

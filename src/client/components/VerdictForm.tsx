@@ -1,4 +1,5 @@
 import type { Suspect, Clue } from '../../shared/cases/cases';
+import { GameIcon } from './ui/GameIcon';
 
 interface VerdictFormProps {
   suspects: readonly Suspect[];
@@ -28,7 +29,7 @@ export const VerdictForm = ({
       {/* Header */}
       <div className="mb-4 border-b border-[#E8DCC8] pb-2">
         <div className="flex items-center gap-2">
-          <span className="text-xl">⚖️</span>
+          <GameIcon name="scale" size="md" className="text-[#087E78]" />
           <div>
             <h2 className="text-base font-black tracking-tight text-[#173B3A]">
               Submit Your Verdict
@@ -66,7 +67,13 @@ export const VerdictForm = ({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="text-lg">👤</span>
+                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${isSelected ? 'bg-[#087E78]/15' : 'bg-gray-100'}`}>
+                    <GameIcon
+                      name="user"
+                      size="sm"
+                      className={isSelected ? 'text-[#087E78]' : 'text-[#455653]'}
+                    />
+                  </div>
                   <div>
                     <h4 className="text-sm font-bold text-[#173B3A]">
                       {suspect.name}
@@ -78,11 +85,11 @@ export const VerdictForm = ({
                 <div
                   className={`flex h-5 w-5 items-center justify-center rounded-full border ${
                     isSelected
-                      ? 'border-[#087E78] bg-[#087E78] text-white text-xs'
+                      ? 'border-[#087E78] bg-[#087E78] text-white'
                       : 'border-[#E8DCC8] bg-white'
                   }`}
                 >
-                  {isSelected && '✓'}
+                  {isSelected && <GameIcon name="check" size="xs" className="text-white" />}
                 </div>
               </button>
             );
@@ -116,7 +123,13 @@ export const VerdictForm = ({
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                  <span className="text-lg">🔍</span>
+                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${isSelected ? 'bg-[#087E78]/15' : 'bg-gray-100'}`}>
+                    <GameIcon
+                      name="magnifier"
+                      size="sm"
+                      className={isSelected ? 'text-[#087E78]' : 'text-[#455653]'}
+                    />
+                  </div>
                   <div className="min-w-0">
                     <h4 className="truncate text-sm font-bold text-[#173B3A]">
                       {clue.title}
@@ -130,11 +143,11 @@ export const VerdictForm = ({
                 <div
                   className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
                     isSelected
-                      ? 'border-[#087E78] bg-[#087E78] text-white text-xs'
+                      ? 'border-[#087E78] bg-[#087E78] text-white'
                       : 'border-[#E8DCC8] bg-white'
                   }`}
                 >
-                  {isSelected && '✓'}
+                  {isSelected && <GameIcon name="check" size="xs" className="text-white" />}
                 </div>
               </button>
             );
@@ -155,11 +168,13 @@ export const VerdictForm = ({
       >
         {isSubmitting ? (
           <span className="flex items-center gap-2">
-            <span className="animate-spin">⏳</span> Submitting Deduction...
+            <GameIcon name="refresh" size="sm" className="animate-spin text-[#455653]" />
+            <span>Submitting Deduction...</span>
           </span>
         ) : (
           <span className="flex items-center gap-2">
-            <span>⚖️</span> Submit Official Verdict
+            <GameIcon name="scale" size="sm" className="text-white" />
+            <span>Submit Official Verdict</span>
           </span>
         )}
       </button>

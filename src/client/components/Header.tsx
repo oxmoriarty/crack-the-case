@@ -1,4 +1,5 @@
 import type { CaseDifficulty } from '../../shared/types';
+import { GameIcon } from './ui/GameIcon';
 
 interface HeaderProps {
   title: string;
@@ -53,7 +54,7 @@ export const Header = ({
           {title}
         </h2>
         <div className="flex items-center gap-1 font-mono text-xs font-semibold text-[#087E78]">
-          <span className="text-[11px]">⏱</span>
+          <GameIcon name="clock" size="xs" className="text-[#087E78]" />
           <span>{formatTime(elapsedSeconds)}</span>
         </div>
       </div>
@@ -63,15 +64,19 @@ export const Header = ({
         <button
           type="button"
           onClick={onOpenHint}
-          className={`flex cursor-pointer items-center gap-1 rounded-full px-3 py-1 text-xs font-bold transition-all shadow-2xs ${
+          className={`flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold transition-all shadow-2xs ${
             hasUsedHint
               ? 'bg-[#E8DCC8] text-[#455653]'
               : 'bg-[#E9B949] text-[#173B3A] hover:bg-[#D4A338] active:scale-95'
           }`}
           title={hasUsedHint ? 'Hint already viewed' : 'View optional hint (-10 unassisted pts)'}
         >
-          <span>💡</span>
-          <span>{hasUsedHint ? 'Hint' : 'Hint'}</span>
+          <GameIcon
+            name="lightbulb"
+            size="xs"
+            className={hasUsedHint ? 'text-[#455653]' : 'text-[#173B3A]'}
+          />
+          <span>Hint</span>
         </button>
       </div>
     </header>

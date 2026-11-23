@@ -1,4 +1,5 @@
 import type { Screen } from '../../shared/types';
+import { GameIcon, type GameIconName } from './ui/GameIcon';
 
 interface FooterProps {
   currentScreen: Screen;
@@ -6,12 +7,12 @@ interface FooterProps {
 }
 
 export const Footer = ({ currentScreen, onNavigate }: FooterProps) => {
-  const tabs: { screen: Screen; label: string; icon: string }[] = [
-    { screen: 'home', label: 'Home', icon: '🏠' },
-    { screen: 'case_intro', label: 'Case', icon: '📋' },
-    { screen: 'suspects', label: 'Suspects', icon: '👥' },
-    { screen: 'clues', label: 'Clues', icon: '🔍' },
-    { screen: 'verdict', label: 'Verdict', icon: '⚖️' },
+  const tabs: { screen: Screen; label: string; icon: GameIconName }[] = [
+    { screen: 'home', label: 'Home', icon: 'home' },
+    { screen: 'case_intro', label: 'Case', icon: 'case-file' },
+    { screen: 'suspects', label: 'Suspects', icon: 'users' },
+    { screen: 'clues', label: 'Clues', icon: 'magnifier' },
+    { screen: 'verdict', label: 'Verdict', icon: 'scale' },
   ];
 
   return (
@@ -29,8 +30,12 @@ export const Footer = ({ currentScreen, onNavigate }: FooterProps) => {
                 : 'text-[#455653] hover:text-[#173B3A]'
             }`}
           >
-            <span className={`text-base transition-transform ${isActive ? 'scale-115' : ''}`}>
-              {tab.icon}
+            <span className={`transition-transform ${isActive ? 'scale-115' : ''}`}>
+              <GameIcon
+                name={tab.icon}
+                size="sm"
+                className={isActive ? 'text-[#087E78]' : 'text-[#455653]'}
+              />
             </span>
             <span className="text-[11px] tracking-tight">{tab.label}</span>
             {isActive && (

@@ -90,7 +90,23 @@ async function main() {
   });
   console.log(`  Version created successfully! ID: ${createdVersion.id}`);
 
-  console.log('5. Upgrading installation in subreddit...');
+  console.log('5. Waiting for remote build to complete on Reddit...');
+  let currentStatus = 0; // 0 = BUILDING, 1 = READY, 2 = FAILED
+  for (let i = 0; i < 30; i++) {
+    const vCheck = await appVersionClient.Get({ id: createdVersion.id });
+    currentStatus = vCheck.appVersion?.buildStatus ?? 0;
+    if (currentStatus === 1) {
+      console.log('  Remote build status: READY (1)');
+      break;
+    }
+    if (currentStatus === 2) {
+      throw new Error('Remote build failed on Reddit Devvit!');
+    }
+    console.log(`  Waiting for build... attempt ${i + 1} (status: ${currentStatus})`);
+    await new Promise((r) => setTimeout(r, 2000));
+  }
+
+  console.log('6. Upgrading installation in subreddit...');
   const installationsClient = createInstallationsClient();
   const instList = await installationsClient.GetAllWithApp({ id: appId });
   if (!instList.installations || instList.installations.length === 0) {
