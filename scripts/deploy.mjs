@@ -13,14 +13,19 @@ import { ACTOR_SRC_PRIMARY_NAME } from '@devvit/shared-types/constants.js';
 async function main() {
   console.log('--- CRACK THE CASE: DEPLOY SCRIPT ---');
 
-  console.log('0. Refreshing Reddit Devvit authentication token...');
+  console.log('0. Checking Reddit Devvit authentication token...');
   const authSvc = getOAuthSvc();
   const tokenInfo = await authSvc.authTokenStore.readFSToken();
   if (!tokenInfo) {
     throw new Error('No saved Devvit token found. Please run npx devvit login.');
   }
-  await authSvc.refreshStoredToken(tokenInfo.token.refreshToken, Boolean(tokenInfo.copyPaste));
-  console.log('  Token refreshed and valid!');
+  if (!tokenInfo.token.isFresh()) {
+    console.log('  Refreshing expired auth token...');
+    await authSvc.refreshStoredToken(tokenInfo.token.refreshToken, Boolean(tokenInfo.copyPaste));
+    console.log('  Token refreshed and valid!');
+  } else {
+    console.log('  Token is fresh and valid!');
+  }
 
   const project = await Project.new('.', 'devvit.json');
   const fakeCmd = {
@@ -61,14 +66,14 @@ async function main() {
   const appId = appInfo.app.id;
   console.log(`  App ID: ${appId}`);
 
-  let maxPrerelease = 0;
+  let maxPatch = 0;
   for (const v of appInfo.versions) {
-    if (v.prereleaseVersion && v.prereleaseVersion > maxPrerelease) {
-      maxPrerelease = v.prereleaseVersion;
+    if (v.patchVersion && v.patchVersion > maxPatch) {
+      maxPatch = v.patchVersion;
     }
   }
-  const nextPrerelease = maxPrerelease + 1;
-  const versionStr = `0.0.0-prerelease.${nextPrerelease}`;
+  const nextPatch = maxPatch + 1;
+  const versionStr = `0.0.${nextPatch}`;
   console.log(`  Next version to create: ${versionStr}`);
 
   console.log('3. Bundling actor...');
@@ -108,8 +113,8 @@ async function main() {
     visibility: 1,
     majorVersion: 0,
     minorVersion: 0,
-    patchVersion: 0,
-    prereleaseVersion: nextPrerelease,
+    patchVersion: nextPatch,
+    prereleaseVersion: 0,
     actorBundles: bundles,
     validInstallTypes: [1],
     devvitJson: JSON.stringify(project.appConfig),
