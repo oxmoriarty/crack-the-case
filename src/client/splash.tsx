@@ -41,7 +41,17 @@ export const Splash = () => {
       <button
         type="button"
         className="flex h-12 w-full max-w-xs cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#087E78] font-bold text-white shadow-md transition-all hover:bg-[#065C58] active:scale-98"
-        onClick={(e) => requestExpandedMode(e.nativeEvent, 'game')}
+        onClick={(e) => {
+          if (window.self === window.top) {
+            window.location.href = '/game.html';
+            return;
+          }
+          try {
+            requestExpandedMode(e.nativeEvent, 'game');
+          } catch {
+            window.location.href = '/game.html';
+          }
+        }}
       >
         <GameIcon name="magnifier" size="sm" className="text-white" />
         <span>Begin Investigation</span>
