@@ -7,6 +7,7 @@ interface HeaderProps {
   elapsedSeconds: number;
   hasUsedHint: boolean;
   onOpenHint: () => void;
+  onBackToHome?: () => void;
 }
 
 export const Header = ({
@@ -15,6 +16,7 @@ export const Header = ({
   elapsedSeconds,
   hasUsedHint,
   onOpenHint,
+  onBackToHome,
 }: HeaderProps) => {
   const formatTime = (totalSec: number) => {
     const mins = Math.floor(totalSec / 60);
@@ -37,10 +39,20 @@ export const Header = ({
 
   return (
     <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b-[2.5px] border-[#262320] bg-[#FFFDF8] px-3 shadow-[0_3px_0_rgba(38,35,32,0.1)]">
-      {/* Left: Difficulty Badge */}
-      <div className="flex items-center">
+      {/* Left: Back to Home + Difficulty Badge */}
+      <div className="flex items-center gap-1.5">
+        {onBackToHome && (
+          <button
+            type="button"
+            onClick={onBackToHome}
+            className="btn-cartoon-cream flex h-8 cursor-pointer items-center gap-1 px-2 font-cartoon text-[11px] shadow-[0_2px_0_#262320] active:translate-y-0.5 active:shadow-none"
+            title="Return to Main Case Menu"
+          >
+            <span>← HOME</span>
+          </button>
+        )}
         <span
-          className={`inline-flex items-center gap-1 rounded-full border-[2px] border-[#262320] border-b-[3.5px] px-2.5 py-0.5 font-cartoon text-xs tracking-wider uppercase shadow-[0_1.5px_0_#262320] ${getDifficultyBadge(
+          className={`hidden xs:inline-flex sm:inline-flex items-center gap-1 rounded-full border-[2px] border-[#262320] border-b-[3.5px] px-2 py-0.5 font-cartoon text-[11px] tracking-wider uppercase shadow-[0_1.5px_0_#262320] ${getDifficultyBadge(
             difficulty
           )}`}
         >

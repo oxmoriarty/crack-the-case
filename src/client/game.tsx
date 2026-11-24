@@ -262,6 +262,7 @@ export const App = () => {
           elapsedSeconds={elapsedSeconds}
           hasUsedHint={hasUsedHint}
           onOpenHint={handleOpenHint}
+          onBackToHome={() => navigateToScreen('home')}
         />
       )}
 
@@ -283,6 +284,7 @@ export const App = () => {
           <CaseIntroView
             caseData={activeCase}
             onBeginInvestigation={handleBeginInvestigation}
+            onBack={() => navigateToScreen('home')}
             isStarting={false}
           />
         )}

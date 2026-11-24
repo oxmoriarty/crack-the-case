@@ -4,12 +4,14 @@ import { GameIcon } from './ui/GameIcon';
 interface CaseIntroViewProps {
   caseData: CaseData;
   onBeginInvestigation: () => void;
+  onBack?: () => void;
   isStarting: boolean;
 }
 
 export const CaseIntroView = ({
   caseData,
   onBeginInvestigation,
+  onBack,
   isStarting,
 }: CaseIntroViewProps) => {
   return (
@@ -17,9 +19,21 @@ export const CaseIntroView = ({
       {/* Header Banner */}
       <div className="mb-4 border-b-[2.5px] border-[#262320] pb-3">
         <div className="flex items-center justify-between">
-          <span className="font-cartoon text-xs text-[#61584F] tracking-wider">
-            CASE #{caseData.caseNumber}
-          </span>
+          <div className="flex items-center gap-2">
+            {onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="btn-cartoon-cream flex h-7 cursor-pointer items-center gap-1 px-2 font-cartoon text-xs shadow-[0_2px_0_#262320] active:translate-y-0.5 active:shadow-none"
+                title="Return to Home"
+              >
+                <span>← HOME</span>
+              </button>
+            )}
+            <span className="font-cartoon text-xs text-[#61584F] tracking-wider">
+              CASE #{caseData.caseNumber}
+            </span>
+          </div>
           <span className="badge-cartoon-green text-xs">
             {caseData.difficulty}
           </span>

@@ -1,5 +1,6 @@
 import type { Suspect, Clue } from '../../shared/cases/cases';
 import { GameIcon } from './ui/GameIcon';
+import { SuspectAvatar } from './ui/SuspectAvatar';
 
 interface VerdictFormProps {
   suspects: readonly Suspect[];
@@ -69,13 +70,7 @@ export const VerdictForm = ({
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-xl border-[2px] border-[#262320] ${
-                      isSelected ? 'bg-white/20' : 'bg-[#F6EFE0]'
-                    }`}
-                  >
-                    <GameIcon name="user" size="sm" />
-                  </div>
+                  <SuspectAvatar suspect={suspect} size="sm" />
                   <div>
                     <h4
                       className={`font-cartoon text-sm tracking-wide ${
