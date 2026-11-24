@@ -112,6 +112,10 @@ async function main() {
     // Minify actor code with esbuild for clean and compact transport
     const minActor = await esbuild.transform(b.code, { minify: true });
     b.code = minActor.code;
+    if (b.server && b.server.code) {
+      const minServer = await esbuild.transform(b.server.code, { minify: true });
+      b.server.code = minServer.code;
+    }
   }
   console.log(`  Bundles prepared: ${bundles.length}`);
   console.log(`  Actor code size: ${bundles[0].code.length} bytes`);
