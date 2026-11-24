@@ -18,91 +18,99 @@ export const LeaderboardView = ({
   return (
     <div className="flex w-full flex-col p-4 pb-8">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between border-b border-[#E8DCC8] pb-3">
+      <div className="mb-4 flex items-center justify-between border-b-[2.5px] border-[#262320] pb-3">
         <button
           type="button"
           onClick={onBack}
-          className="flex cursor-pointer items-center gap-1 text-xs font-bold text-[#087E78] hover:underline"
+          className="btn-cartoon-cream flex h-9 cursor-pointer items-center gap-1.5 px-3 font-cartoon text-xs shadow-[0_2px_0_#262320]"
         >
-          ← Back
+          <span>← BACK</span>
         </button>
-        <h2 className="text-base font-black text-[#173B3A]">Subreddit Standings</h2>
-        <div className="w-10" />
+        <h2 className="text-cartoon-shadow text-xl text-white tracking-wide">
+          SUBREDDIT STANDINGS
+        </h2>
+        <div className="w-16" />
       </div>
 
-      {/* Tabs */}
-      <div className="mb-4 grid grid-cols-2 rounded-xl border border-[#E8DCC8] bg-white p-1">
+      {/* Tabs (Chunky 3D Buttons) */}
+      <div className="mb-4 grid grid-cols-2 gap-2">
         <button
           type="button"
           onClick={() => setActiveTab('daily')}
-          className={`cursor-pointer rounded-lg py-2 text-xs font-bold transition-all ${
+          className={`flex h-11 cursor-pointer items-center justify-center rounded-xl font-cartoon text-xs tracking-wider uppercase transition-all select-none ${
             activeTab === 'daily'
-              ? 'bg-[#087E78] text-white shadow-xs'
-              : 'text-[#455653] hover:text-[#173B3A]'
+              ? 'btn-cartoon-green shadow-[0_3px_0_#262320]'
+              : 'btn-cartoon-cream shadow-[0_2.5px_0_#262320]'
           }`}
         >
-          Case #{caseNumber} Daily
+          CASE #{caseNumber} DAILY
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('general')}
-          className={`cursor-pointer rounded-lg py-2 text-xs font-bold transition-all ${
+          className={`flex h-11 cursor-pointer items-center justify-center rounded-xl font-cartoon text-xs tracking-wider uppercase transition-all select-none ${
             activeTab === 'general'
-              ? 'bg-[#087E78] text-white shadow-xs'
-              : 'text-[#455653] hover:text-[#173B3A]'
+              ? 'btn-cartoon-green shadow-[0_3px_0_#262320]'
+              : 'btn-cartoon-cream shadow-[0_2.5px_0_#262320]'
           }`}
         >
-          General Hall of Fame
+          HALL OF FAME
         </button>
       </div>
 
       {/* Subreddit Standings Note */}
-      <div className="mb-4 rounded-xl border border-[#E8DCC8]/60 bg-[#FFFAF2] p-3 text-xs text-[#455653]">
-        <p className="font-medium">
+      <div className="card-notebook mb-4 p-3.5 shadow-[0_3px_0_#262320]">
+        <p className="font-body text-xs font-semibold leading-relaxed text-[#262320]">
           Standings are isolated to this subreddit installation. Top 100 detectives ranked by score, solve time, and earliest submission.
         </p>
       </div>
 
       {/* Current Player Rank Card */}
-      <div className="mb-5 flex items-center justify-between rounded-2xl border-2 border-[#087E78] bg-[#E0F2F1] p-4 shadow-xs">
+      <div className="card-notebook mb-5 flex items-center justify-between p-4 shadow-[0_5px_0_#262320]">
         <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#087E78] text-white">
-            <GameIcon name="star" size="xs" className="text-white" />
-          </span>
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border-[2px] border-[#262320] bg-[#F5B229] shadow-[0_2px_0_#262320]">
+            <GameIcon name="star" size="xs" />
+          </div>
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#087E78]">
-              Your Ranking
+            <span className="badge-cartoon-yellow text-[10px]">
+              YOUR RANKING
             </span>
-            <h4 className="text-sm font-black text-[#173B3A]">
+            <h4 className="font-cartoon mt-0.5 text-sm text-[#262320] tracking-wide">
               {profile.username}
             </h4>
           </div>
         </div>
 
         <div className="text-right">
-          <span className="text-sm font-black text-[#087E78]">
-            {activeTab === 'daily' ? `${profile.casesSolved > 0 ? 'Active Solver' : 'Unsolved'}` : `${profile.xp} XP`}
+          <span className="font-cartoon text-sm text-[#27A468]">
+            {activeTab === 'daily' ? `${profile.casesSolved > 0 ? 'ACTIVE SOLVER' : 'UNSOLVED'}` : `${profile.xp} XP`}
           </span>
-          <p className="text-[10px] font-semibold text-[#455653]">
+          <p className="font-cartoon text-[11px] text-[#61584F]">
             {profile.rank}
           </p>
         </div>
       </div>
 
-      {/* Top 100 List Placeholder (Phase 1 Stub) */}
-      <div className="rounded-2xl border border-[#E8DCC8] bg-white p-5 text-center shadow-xs">
-        <div className="flex justify-center">
-          <GameIcon name="trophy" size="xl" className="text-[#E9B949]" />
+      {/* Top 100 List Placeholder */}
+      <div className="card-notebook relative p-6 pt-7 text-center shadow-[0_5px_0_#262320]">
+        <div className="scotch-tape" />
+
+        <div className="flex justify-center mb-2">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border-[2.5px] border-[#262320] bg-[#F5B229] shadow-[0_3px_0_#262320]">
+            <GameIcon name="trophy" size="xl" />
+          </div>
         </div>
-        <h4 className="mt-2 text-sm font-black text-[#173B3A]">
+        <h4 className="font-cartoon text-base text-[#262320] tracking-wide">
           {activeTab === 'daily'
-            ? `Case #${caseNumber} Daily Leaderboard`
-            : 'Subreddit All-Time Leaderboard'}
+            ? `CASE #${caseNumber} DAILY LEADERBOARD`
+            : 'SUBREDDIT ALL-TIME LEADERBOARD'}
         </h4>
-        <p className="mt-1 text-xs text-[#455653]">
-          Full live community standings populate as detectives solve today's mystery.
-        </p>
+        <div className="mt-2 rounded-xl border-[2px] border-[#262320] bg-[#F6EFE0] p-3 shadow-[inset_0_2px_4px_rgba(38,35,32,0.1)]">
+          <p className="font-body text-xs font-semibold leading-relaxed text-[#61584F]">
+            Full live community standings populate as detectives solve today's mystery.
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -25,17 +25,19 @@ export const VerdictForm = ({
   const isComplete = selectedCulpritId !== null && selectedClueId !== null;
 
   return (
-    <div className="flex w-full flex-col p-4">
+    <div className="flex w-full flex-col p-4 pb-8">
       {/* Header */}
-      <div className="mb-4 border-b border-[#E8DCC8] pb-2">
-        <div className="flex items-center gap-2">
-          <GameIcon name="scale" size="md" className="text-[#087E78]" />
+      <div className="mb-4 border-b-[2.5px] border-[#262320] pb-3">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl border-[2px] border-[#262320] bg-[#F5B229] shadow-[0_2.5px_0_#262320]">
+            <GameIcon name="scale" size="md" />
+          </div>
           <div>
-            <h2 className="text-base font-black tracking-tight text-[#173B3A]">
-              Submit Your Verdict
+            <h2 className="text-cartoon-shadow text-xl text-white tracking-wide">
+              SUBMIT YOUR VERDICT
             </h2>
-            <p className="text-xs text-[#455653]">
-              Select the culprit and the single decisive clue proving guilt
+            <p className="font-cartoon text-xs text-[#61584F] tracking-wider">
+              SELECT THE CULPRIT AND THE SINGLE DECISIVE CLUE
             </p>
           </div>
         </div>
@@ -43,16 +45,16 @@ export const VerdictForm = ({
 
       {/* Section 1: Choose Culprit */}
       <div className="mb-5">
-        <div className="mb-2 flex items-center justify-between">
-          <label className="text-xs font-black uppercase tracking-wider text-[#087E78]">
-            1. Accuse Culprit
-          </label>
-          <span className="text-[11px] font-semibold text-[#455653]">
-            {selectedCulpritId ? 'Selected' : 'Choose 1 suspect'}
+        <div className="mb-2.5 flex items-center justify-between">
+          <span className="ribbon-red-tape text-xs">
+            1. ACCUSE CULPRIT
+          </span>
+          <span className="font-cartoon text-[11px] text-[#61584F]">
+            {selectedCulpritId ? '✓ SELECTED' : 'CHOOSE 1 SUSPECT'}
           </span>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2.5">
           {suspects.map((suspect) => {
             const isSelected = selectedCulpritId === suspect.id;
             return (
@@ -60,36 +62,44 @@ export const VerdictForm = ({
                 key={suspect.id}
                 type="button"
                 onClick={() => onSelectCulprit(suspect.id)}
-                className={`flex cursor-pointer items-center justify-between rounded-xl border p-3 text-left transition-all ${
+                className={`flex cursor-pointer items-center justify-between rounded-xl border-[2.5px] border-[#262320] p-3 text-left transition-all select-none ${
                   isSelected
-                    ? 'border-[#087E78] bg-[#E0F2F1] shadow-xs'
-                    : 'border-[#E8DCC8] bg-white hover:border-[#087E78]/50'
+                    ? 'border-b-[5px] border-b-[#166A3F] bg-[#27A468] text-white shadow-[0_4px_0_#262320] scale-[1.01]'
+                    : 'border-b-[4.5px] border-b-[#D6C7AE] bg-[#FFFDF8] text-[#262320] shadow-[0_3px_0_#262320] hover:bg-[#FFFFFF] active:translate-y-1 active:border-b-[2.5px] active:shadow-none'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${isSelected ? 'bg-[#087E78]/15' : 'bg-gray-100'}`}>
-                    <GameIcon
-                      name="user"
-                      size="sm"
-                      className={isSelected ? 'text-[#087E78]' : 'text-[#455653]'}
-                    />
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl border-[2px] border-[#262320] ${
+                      isSelected ? 'bg-white/20' : 'bg-[#F6EFE0]'
+                    }`}
+                  >
+                    <GameIcon name="user" size="sm" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#173B3A]">
+                    <h4
+                      className={`font-cartoon text-sm tracking-wide ${
+                        isSelected ? 'text-white' : 'text-[#262320]'
+                      }`}
+                    >
                       {suspect.name}
                     </h4>
-                    <span className="text-xs text-[#455653]">{suspect.role}</span>
+                    <span
+                      className={`font-cartoon text-xs ${
+                        isSelected ? 'text-white/80' : 'text-[#61584F]'
+                      }`}
+                    >
+                      {suspect.role}
+                    </span>
                   </div>
                 </div>
 
                 <div
-                  className={`flex h-5 w-5 items-center justify-center rounded-full border ${
-                    isSelected
-                      ? 'border-[#087E78] bg-[#087E78] text-white'
-                      : 'border-[#E8DCC8] bg-white'
+                  className={`flex h-6 w-6 items-center justify-center rounded-full border-[2px] border-[#262320] shadow-[0_1.5px_0_#262320] ${
+                    isSelected ? 'bg-[#F5B229]' : 'bg-[#F6EFE0]'
                   }`}
                 >
-                  {isSelected && <GameIcon name="check" size="xs" className="text-white" />}
+                  {isSelected && <GameIcon name="check" size="xs" />}
                 </div>
               </button>
             );
@@ -99,16 +109,16 @@ export const VerdictForm = ({
 
       {/* Section 2: Choose Decisive Clue */}
       <div className="mb-6">
-        <div className="mb-2 flex items-center justify-between">
-          <label className="text-xs font-black uppercase tracking-wider text-[#087E78]">
-            2. Decisive Clue
-          </label>
-          <span className="text-[11px] font-semibold text-[#455653]">
-            {selectedClueId ? 'Selected' : 'Choose 1 clue'}
+        <div className="mb-2.5 flex items-center justify-between">
+          <span className="badge-cartoon-yellow text-xs">
+            2. DECISIVE CLUE
+          </span>
+          <span className="font-cartoon text-[11px] text-[#61584F]">
+            {selectedClueId ? '✓ SELECTED' : 'CHOOSE 1 CLUE'}
           </span>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2.5">
           {clues.map((clue) => {
             const isSelected = selectedClueId === clue.id;
             return (
@@ -116,38 +126,44 @@ export const VerdictForm = ({
                 key={clue.id}
                 type="button"
                 onClick={() => onSelectClue(clue.id)}
-                className={`flex cursor-pointer items-center justify-between rounded-xl border p-3 text-left transition-all ${
+                className={`flex cursor-pointer items-center justify-between rounded-xl border-[2.5px] border-[#262320] p-3 text-left transition-all select-none ${
                   isSelected
-                    ? 'border-[#087E78] bg-[#E0F2F1] shadow-xs'
-                    : 'border-[#E8DCC8] bg-white hover:border-[#087E78]/50'
+                    ? 'border-b-[5px] border-b-[#166A3F] bg-[#27A468] text-white shadow-[0_4px_0_#262320] scale-[1.01]'
+                    : 'border-b-[4.5px] border-b-[#D6C7AE] bg-[#FFFDF8] text-[#262320] shadow-[0_3px_0_#262320] hover:bg-[#FFFFFF] active:translate-y-1 active:border-b-[2.5px] active:shadow-none'
                 }`}
               >
-                <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${isSelected ? 'bg-[#087E78]/15' : 'bg-gray-100'}`}>
-                    <GameIcon
-                      name="magnifier"
-                      size="sm"
-                      className={isSelected ? 'text-[#087E78]' : 'text-[#455653]'}
-                    />
+                <div className="flex items-center gap-3 min-w-0 pr-2">
+                  <div
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-[2px] border-[#262320] ${
+                      isSelected ? 'bg-white/20' : 'bg-[#F6EFE0]'
+                    }`}
+                  >
+                    <GameIcon name="magnifier" size="sm" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="truncate text-sm font-bold text-[#173B3A]">
+                    <h4
+                      className={`font-cartoon truncate text-sm tracking-wide ${
+                        isSelected ? 'text-white' : 'text-[#262320]'
+                      }`}
+                    >
                       {clue.title}
                     </h4>
-                    <p className="truncate text-xs text-[#455653]">
+                    <p
+                      className={`truncate font-body text-xs font-semibold ${
+                        isSelected ? 'text-white/80' : 'text-[#61584F]'
+                      }`}
+                    >
                       {clue.description}
                     </p>
                   </div>
                 </div>
 
                 <div
-                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
-                    isSelected
-                      ? 'border-[#087E78] bg-[#087E78] text-white'
-                      : 'border-[#E8DCC8] bg-white'
+                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-[2px] border-[#262320] shadow-[0_1.5px_0_#262320] ${
+                    isSelected ? 'bg-[#F5B229]' : 'bg-[#F6EFE0]'
                   }`}
                 >
-                  {isSelected && <GameIcon name="check" size="xs" className="text-white" />}
+                  {isSelected && <GameIcon name="check" size="xs" />}
                 </div>
               </button>
             );
@@ -160,28 +176,28 @@ export const VerdictForm = ({
         type="button"
         disabled={!isComplete || isSubmitting}
         onClick={onSubmit}
-        className={`flex h-12 w-full cursor-pointer items-center justify-center rounded-xl font-bold transition-all shadow-md active:scale-98 ${
+        className={`flex h-13 w-full cursor-pointer items-center justify-center text-base font-cartoon uppercase tracking-wider transition-all select-none ${
           isComplete && !isSubmitting
-            ? 'bg-[#087E78] text-white hover:bg-[#065C58]'
-            : 'cursor-not-allowed bg-[#E8DCC8] text-[#455653]/60 shadow-none'
+            ? 'btn-cartoon-green shadow-[0_5px_0_#262320]'
+            : 'cursor-not-allowed border-[2.5px] border-[#262320] border-b-[4px] border-b-[#A8987E] bg-[#E5DAC6] text-[#7A7165] opacity-75 shadow-none'
         }`}
       >
         {isSubmitting ? (
           <span className="flex items-center gap-2">
-            <GameIcon name="refresh" size="sm" className="animate-spin text-[#455653]" />
-            <span>Submitting Deduction...</span>
+            <GameIcon name="refresh" size="sm" className="animate-spin" />
+            <span>SUBMITTING DEDUCTION...</span>
           </span>
         ) : (
           <span className="flex items-center gap-2">
-            <GameIcon name="scale" size="sm" className="text-white" />
-            <span>Submit Official Verdict</span>
+            <GameIcon name="scale" size="sm" />
+            <span>SUBMIT OFFICIAL VERDICT</span>
           </span>
         )}
       </button>
 
       {!isComplete && (
-        <p className="mt-2 text-center text-[11px] text-[#455653]">
-          Select both one culprit and one decisive clue to submit
+        <p className="mt-2.5 text-center font-cartoon text-[11px] text-[#61584F] tracking-wide">
+          SELECT BOTH ONE CULPRIT AND ONE DECISIVE CLUE TO SUBMIT
         </p>
       )}
     </div>
