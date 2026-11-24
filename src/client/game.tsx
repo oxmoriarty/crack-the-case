@@ -199,16 +199,19 @@ export const App = () => {
   // Loading View
   if (isLoading) {
     return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-center bg-[#FFF5E6] p-6 text-center select-none">
-        <div className="relative mb-3 flex h-16 w-16 animate-bounce items-center justify-center rounded-2xl bg-[#087E78] shadow-md">
-          <GameIcon name="magnifier" size="lg" className="text-white" />
+      <div className="flex min-h-screen w-full flex-col items-center justify-center bg-[#8E9B87] p-6 text-center select-none">
+        <div className="card-notebook relative w-full max-w-xs p-6 pt-7 text-center shadow-[0_6px_0_#262320]">
+          <div className="scotch-tape" />
+          <div className="relative mx-auto mb-3 flex h-16 w-16 animate-bounce items-center justify-center rounded-2xl border-[2.5px] border-[#262320] border-b-[4.5px] border-b-[#166A3F] bg-[#27A468] shadow-[0_4px_0_#262320]">
+            <GameIcon name="magnifier" size="lg" />
+          </div>
+          <h2 className="text-cartoon-shadow text-2xl text-white tracking-wide">
+            CRACK THE CASE
+          </h2>
+          <p className="font-cartoon mt-1.5 text-xs text-[#27A468] tracking-wider uppercase">
+            Reviewing evidence dossier...
+          </p>
         </div>
-        <h2 className="text-lg font-black tracking-tight text-[#173B3A]">
-          CRACK THE CASE
-        </h2>
-        <p className="mt-1 text-xs font-bold text-[#087E78]">
-          Reviewing evidence dossier...
-        </p>
       </div>
     );
   }
@@ -216,23 +219,26 @@ export const App = () => {
   // Error View
   if (errorMsg || !initData) {
     return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-center bg-[#FFF5E6] p-6 text-center">
-        <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FCE8E6]">
-          <GameIcon name="siren" size="lg" className="text-[#F07868]" />
+      <div className="flex min-h-screen w-full flex-col items-center justify-center bg-[#8E9B87] p-6 text-center select-none">
+        <div className="card-notebook relative w-full max-w-xs p-6 pt-7 text-center shadow-[0_6px_0_#262320]">
+          <div className="scotch-tape" />
+          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border-[2.5px] border-[#262320] bg-[#E44949] shadow-[0_3px_0_#262320]">
+            <GameIcon name="siren" size="lg" />
+          </div>
+          <h2 className="text-cartoon-shadow text-xl text-white tracking-wide">
+            CONNECTION NOTICE
+          </h2>
+          <p className="mt-2 font-body text-xs font-semibold text-[#61584F]">
+            {errorMsg ?? 'Failed to load case data.'}
+          </p>
+          <button
+            type="button"
+            onClick={() => void fetchInit()}
+            className="btn-cartoon-green mt-4 h-11 w-full text-xs shadow-[0_3px_0_#262320]"
+          >
+            TRY AGAIN
+          </button>
         </div>
-        <h2 className="mt-1 text-lg font-bold text-[#173B3A]">
-          Connection Notice
-        </h2>
-        <p className="mt-1 max-w-xs text-xs text-[#455653]">
-          {errorMsg ?? 'Failed to load case data.'}
-        </p>
-        <button
-          type="button"
-          onClick={() => void fetchInit()}
-          className="mt-4 cursor-pointer rounded-xl bg-[#087E78] px-5 py-2.5 text-xs font-bold text-white shadow-md hover:bg-[#065C58]"
-        >
-          Try Again
-        </button>
       </div>
     );
   }
@@ -247,7 +253,7 @@ export const App = () => {
   ].includes(currentScreen);
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-lg flex-col bg-[#FFF5E6] shadow-xl">
+    <div className="mx-auto flex min-h-screen w-full max-w-lg flex-col bg-[#FFFDF8] border-x-[2.5px] border-[#262320] shadow-[0_0_24px_rgba(0,0,0,0.25)]">
       {/* Persistent Investigation Header (Absent on Home, Results, Stats, Help) */}
       {isInvestigationActive && (
         <Header

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800;900&family=Lilita+One&family=Patrick+Hand&display=swap');
 @import 'tailwindcss';
 
 #ctc-game-root {
@@ -5,46 +6,348 @@
 }
 
 @theme {
-  --color-brand-cream: #FFF5E6;
-  --color-brand-cream-light: #FFFAF2;
-  --color-brand-teal: #087E78;
-  --color-brand-teal-dark: #065C58;
-  --color-brand-teal-light: #E0F2F1;
-  --color-brand-coral: #F07868;
-  --color-brand-coral-dark: #D9534F;
-  --color-brand-mustard: #E9B949;
-  --color-brand-mustard-dark: #D4A338;
-  --color-brand-sky: #78B9DF;
-  --color-brand-sky-dark: #5A9EC4;
-  --color-brand-text: #173B3A;
-  --color-brand-text-muted: #455653;
-  --color-brand-surface: #FFFFFF;
-  --color-brand-border: #E8DCC8;
+  --color-brand-cream: #FFFDF8;
+  --color-brand-parchment: #F6EFE0;
+  --color-brand-canvas: #8F9B88;
+  --color-brand-canvas-dark: #7A8673;
+  --color-brand-dark: #262320;
+  --color-brand-teal: #27A468;
+  --color-brand-teal-dark: #176B41;
+  --color-brand-coral: #E44949;
+  --color-brand-coral-dark: #961D1D;
+  --color-brand-gold: #F5B229;
+  --color-brand-gold-dark: #B0700D;
+  --color-brand-sky: #3BAFD0;
+  --color-brand-sky-dark: #1F7C96;
+  --color-brand-text: #262320;
+  --color-brand-text-muted: #61584F;
 
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-cartoon: 'Lilita One', 'Fredoka', ui-rounded, 'Comic Sans MS', sans-serif;
+  --font-body: 'Fredoka', system-ui, -apple-system, sans-serif;
+  --font-hand: 'Patrick Hand', cursive, sans-serif;
 }
 
 body {
-  background-color: var(--color-brand-cream);
-  color: var(--color-brand-text);
-  font-family: var(--font-sans);
+  background-color: #8E9B87;
+  color: #262320;
+  font-family: var(--font-body);
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbars for modals and cards */
+/* ========================================================
+   CARTOON DISPLAY TYPOGRAPHY
+   ======================================================== */
+.font-cartoon {
+  font-family: 'Lilita One', 'Fredoka', ui-rounded, cursive, sans-serif;
+}
+
+.font-body {
+  font-family: 'Fredoka', system-ui, sans-serif;
+}
+
+.font-hand {
+  font-family: 'Patrick Hand', cursive, sans-serif;
+}
+
+/* 3D Outlined Cartoon Text Shadows */
+.text-cartoon-shadow {
+  font-family: 'Lilita One', 'Fredoka', cursive, sans-serif;
+  letter-spacing: 0.03em;
+  text-shadow:
+    -2px -2px 0 #262320,
+    2px -2px 0 #262320,
+    -2px 2px 0 #262320,
+    2px 2px 0 #262320,
+    0 4px 0 #181512,
+    0 6px 3px rgba(0, 0, 0, 0.3);
+}
+
+.text-cartoon-gold {
+  color: #FFC83B;
+  text-shadow:
+    -2px -2px 0 #262320,
+    2px -2px 0 #262320,
+    -2px 2px 0 #262320,
+    2px 2px 0 #262320,
+    0 4px 0 #B0700D,
+    0 5px 0 #262320;
+}
+
+.text-cartoon-green {
+  color: #35C47D;
+  text-shadow:
+    -2px -2px 0 #262320,
+    2px -2px 0 #262320,
+    -2px 2px 0 #262320,
+    2px 2px 0 #262320,
+    0 4px 0 #146B3E,
+    0 5px 0 #262320;
+}
+
+.text-cartoon-red {
+  color: #F85A5A;
+  text-shadow:
+    -2px -2px 0 #262320,
+    2px -2px 0 #262320,
+    -2px 2px 0 #262320,
+    2px 2px 0 #262320,
+    0 4px 0 #9E1F1F,
+    0 5px 0 #262320;
+}
+
+.text-cartoon-white {
+  color: #FFFFFF;
+  text-shadow:
+    -2px -2px 0 #262320,
+    2px -2px 0 #262320,
+    -2px 2px 0 #262320,
+    2px 2px 0 #262320,
+    0 4px 0 #1c1815;
+}
+
+/* ========================================================
+   CHUNKY 3D CARTOON BUTTONS
+   ======================================================== */
+.btn-cartoon-green {
+  background-color: #27A468;
+  color: #FFFFFF;
+  border: 2.5px solid #262320;
+  border-bottom: 5px solid #166A3F;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #262320;
+  font-family: 'Lilita One', 'Fredoka', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.06s ease, border-bottom-width 0.06s ease, box-shadow 0.06s ease;
+  user-select: none;
+}
+.btn-cartoon-green:hover {
+  background-color: #2FBA77;
+}
+.btn-cartoon-green:active {
+  transform: translateY(3.5px);
+  border-bottom-width: 2.5px;
+  box-shadow: 0 1px 0 #262320;
+}
+
+.btn-cartoon-yellow {
+  background-color: #F5B229;
+  color: #262320;
+  border: 2.5px solid #262320;
+  border-bottom: 5px solid #B0700D;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #262320;
+  font-family: 'Lilita One', 'Fredoka', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.06s ease, border-bottom-width 0.06s ease, box-shadow 0.06s ease;
+  user-select: none;
+}
+.btn-cartoon-yellow:hover {
+  background-color: #FFC03D;
+}
+.btn-cartoon-yellow:active {
+  transform: translateY(3.5px);
+  border-bottom-width: 2.5px;
+  box-shadow: 0 1px 0 #262320;
+}
+
+.btn-cartoon-red {
+  background-color: #E44949;
+  color: #FFFFFF;
+  border: 2.5px solid #262320;
+  border-bottom: 5px solid #961D1D;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #262320;
+  font-family: 'Lilita One', 'Fredoka', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.06s ease, border-bottom-width 0.06s ease, box-shadow 0.06s ease;
+  user-select: none;
+}
+.btn-cartoon-red:hover {
+  background-color: #F25757;
+}
+.btn-cartoon-red:active {
+  transform: translateY(3.5px);
+  border-bottom-width: 2.5px;
+  box-shadow: 0 1px 0 #262320;
+}
+
+.btn-cartoon-cream {
+  background-color: #FFFDF8;
+  color: #262320;
+  border: 2.5px solid #262320;
+  border-bottom: 5px solid #D6C7AE;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #262320;
+  font-family: 'Lilita One', 'Fredoka', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  transition: transform 0.06s ease, border-bottom-width 0.06s ease, box-shadow 0.06s ease;
+  user-select: none;
+}
+.btn-cartoon-cream:hover {
+  background-color: #FFFFFF;
+}
+.btn-cartoon-cream:active {
+  transform: translateY(3.5px);
+  border-bottom-width: 2.5px;
+  box-shadow: 0 1px 0 #262320;
+}
+
+/* ========================================================
+   NOTEBOOK & PAPER CARDS
+   ======================================================== */
+.card-notebook {
+  background-color: #FFFDF8;
+  border: 2.5px solid #262320;
+  border-radius: 18px;
+  box-shadow: 0 5px 0 #262320, 0 8px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Spiral binder holes along left side */
+.spiral-binder {
+  position: relative;
+  padding-left: 28px;
+}
+.spiral-binder::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 8px;
+  width: 14px;
+  background-image: radial-gradient(circle, #8F9B88 3.5px, #262320 4.5px, transparent 5px);
+  background-size: 14px 18px;
+  background-repeat: repeat-y;
+  pointer-events: none;
+}
+
+/* Masking Tape Decorator */
+.scotch-tape {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 54px;
+  height: 16px;
+  background-color: rgba(242, 236, 218, 0.75);
+  border-left: 2px dashed rgba(180, 170, 145, 0.6);
+  border-right: 2px dashed rgba(180, 170, 145, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.tape-corner-left {
+  position: absolute;
+  top: -6px;
+  left: -8px;
+  transform: rotate(-35deg);
+  width: 44px;
+  height: 14px;
+  background-color: rgba(242, 236, 218, 0.75);
+  border-left: 2px dashed rgba(180, 170, 145, 0.6);
+  border-right: 2px dashed rgba(180, 170, 145, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.tape-corner-right {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  transform: rotate(35deg);
+  width: 44px;
+  height: 14px;
+  background-color: rgba(242, 236, 218, 0.75);
+  border-left: 2px dashed rgba(180, 170, 145, 0.6);
+  border-right: 2px dashed rgba(180, 170, 145, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Red Tape Ribbon / Title Header */
+.ribbon-red-tape {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E44949;
+  color: #FFFFFF;
+  border: 2px solid #262320;
+  border-bottom: 3.5px solid #961D1D;
+  border-radius: 8px;
+  box-shadow: 0 3px 0 #262320;
+  font-family: 'Lilita One', cursive, sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 12px;
+}
+
+/* Yellow Badge / Pill */
+.badge-cartoon-yellow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5B229;
+  color: #262320;
+  border: 2px solid #262320;
+  border-bottom: 3px solid #B0700D;
+  border-radius: 9999px;
+  box-shadow: 0 2px 0 #262320;
+  font-family: 'Lilita One', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  padding: 2px 10px;
+}
+
+/* Green Badge / Pill */
+.badge-cartoon-green {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #27A468;
+  color: #FFFFFF;
+  border: 2px solid #262320;
+  border-bottom: 3px solid #166A3F;
+  border-radius: 9999px;
+  box-shadow: 0 2px 0 #262320;
+  font-family: 'Lilita One', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  padding: 2px 10px;
+}
+
+/* Stacked paper background effect */
+.paper-stack {
+  position: relative;
+}
+.paper-stack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #F4ECE0;
+  border: 2.5px solid #262320;
+  border-radius: 18px;
+  transform: rotate(1.2deg) translateY(4px);
+  z-index: -1;
+  box-shadow: 0 6px 0 #262320;
+}
+
+/* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(8, 126, 120, 0.2);
+  background: rgba(38, 35, 32, 0.08);
   border-radius: 9999px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(8, 126, 120, 0.4);
+::-webkit-scrollbar-thumb {
+  background: #27A468;
+  border: 2px solid #262320;
+  border-radius: 9999px;
 }
