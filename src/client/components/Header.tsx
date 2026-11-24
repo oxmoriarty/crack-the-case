@@ -22,61 +22,61 @@ export const Header = ({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const getDifficultyColor = (diff: CaseDifficulty) => {
+  const getDifficultyBadge = (diff: CaseDifficulty) => {
     switch (diff) {
       case 'Easy':
-        return 'bg-[#E0F2F1] text-[#087E78] border-[#087E78]/30';
+        return 'bg-[#27A468] text-white border-b-[#176B41]';
       case 'Standard':
-        return 'bg-[#FFF3CD] text-[#856404] border-[#E9B949]/50';
+        return 'bg-[#F5B229] text-[#262320] border-b-[#B0700D]';
       case 'Challenging':
-        return 'bg-[#FCE8E6] text-[#D9534F] border-[#F07868]/40';
+        return 'bg-[#E44949] text-white border-b-[#961D1D]';
       default:
-        return 'bg-gray-100 text-gray-700 border-gray-300';
+        return 'bg-[#D6C7AE] text-[#262320] border-b-[#A8987E]';
     }
   };
 
   return (
-    <header className="sticky top-0 z-20 flex h-14 w-full items-center justify-between border-b border-[#E8DCC8] bg-[#FFF5E6]/95 px-4 backdrop-blur-xs">
+    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b-[2.5px] border-[#262320] bg-[#FFFDF8] px-3 shadow-[0_3px_0_rgba(38,35,32,0.1)]">
       {/* Left: Difficulty Badge */}
       <div className="flex items-center">
         <span
-          className={`rounded-full border px-2.5 py-0.5 text-xs font-bold tracking-wide ${getDifficultyColor(
+          className={`inline-flex items-center gap-1 rounded-full border-[2px] border-[#262320] border-b-[3.5px] px-2.5 py-0.5 font-cartoon text-xs tracking-wider uppercase shadow-[0_1.5px_0_#262320] ${getDifficultyBadge(
             difficulty
           )}`}
         >
-          {difficulty}
+          <GameIcon name="star" size="xs" />
+          <span>{difficulty}</span>
         </span>
       </div>
 
-      {/* Center: Case Title & Timer */}
+      {/* Center: Case Title & Timer Pill */}
       <div className="flex flex-col items-center">
-        <h2 className="max-w-[180px] truncate text-center text-xs font-black tracking-tight text-[#173B3A] sm:max-w-xs sm:text-sm">
+        <h2 className="max-w-[170px] truncate text-center font-cartoon text-xs tracking-wide text-[#262320] sm:max-w-xs sm:text-sm">
           {title}
         </h2>
-        <div className="flex items-center gap-1 font-mono text-xs font-semibold text-[#087E78]">
-          <GameIcon name="clock" size="xs" className="text-[#087E78]" />
-          <span>{formatTime(elapsedSeconds)}</span>
+        {/* Cartoon Timer Pill */}
+        <div className="mt-0.5 inline-flex items-center gap-1.5 rounded-full border-[2px] border-[#262320] bg-[#F6EFE0] px-2.5 py-0.5 shadow-[inset_0_2px_4px_rgba(38,35,32,0.15)]">
+          <GameIcon name="clock" size="xs" />
+          <span className="font-cartoon text-xs text-[#262320] tracking-wider">
+            {formatTime(elapsedSeconds)}
+          </span>
         </div>
       </div>
 
-      {/* Right: Hint Button */}
+      {/* Right: Hint Button (Chunky 3D Bevel) */}
       <div className="flex items-center">
         <button
           type="button"
           onClick={onOpenHint}
-          className={`flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold transition-all shadow-2xs ${
+          className={`flex cursor-pointer items-center gap-1.5 rounded-xl border-[2px] border-[#262320] px-3 py-1 font-cartoon text-xs tracking-wider uppercase transition-all select-none ${
             hasUsedHint
-              ? 'bg-[#E8DCC8] text-[#455653]'
-              : 'bg-[#E9B949] text-[#173B3A] hover:bg-[#D4A338] active:scale-95'
+              ? 'border-b-[2px] bg-[#E5DAC6] text-[#7A7165] opacity-75 shadow-none'
+              : 'border-b-[4px] border-b-[#B0700D] bg-[#F5B229] text-[#262320] shadow-[0_3px_0_#262320] hover:bg-[#FFC03D] active:translate-y-1 active:border-b-[2px] active:shadow-none'
           }`}
           title={hasUsedHint ? 'Hint already viewed' : 'View optional hint (-10 unassisted pts)'}
         >
-          <GameIcon
-            name="lightbulb"
-            size="xs"
-            className={hasUsedHint ? 'text-[#455653]' : 'text-[#173B3A]'}
-          />
-          <span>Hint</span>
+          <GameIcon name="lightbulb" size="xs" />
+          <span>HINT</span>
         </button>
       </div>
     </header>

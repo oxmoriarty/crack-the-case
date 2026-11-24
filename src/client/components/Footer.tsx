@@ -16,7 +16,7 @@ export const Footer = ({ currentScreen, onNavigate }: FooterProps) => {
   ];
 
   return (
-    <footer className="sticky bottom-0 z-20 flex h-16 w-full items-center justify-around border-t border-[#E8DCC8] bg-[#FFF5E6]/95 px-2 backdrop-blur-xs">
+    <footer className="sticky bottom-0 z-20 flex h-20 w-full items-center justify-around border-t-[2.5px] border-[#262320] bg-[#FFFDF8] px-2 py-1 shadow-[0_-3px_0_rgba(38,35,32,0.1)]">
       {tabs.map((tab) => {
         const isActive = currentScreen === tab.screen;
         return (
@@ -24,22 +24,26 @@ export const Footer = ({ currentScreen, onNavigate }: FooterProps) => {
             key={tab.screen}
             type="button"
             onClick={() => onNavigate(tab.screen)}
-            className={`flex flex-1 cursor-pointer flex-col items-center justify-center py-1 transition-all ${
+            className={`group flex flex-1 cursor-pointer flex-col items-center justify-center rounded-xl py-1.5 transition-all select-none ${
               isActive
-                ? 'font-bold text-[#087E78]'
-                : 'text-[#455653] hover:text-[#173B3A]'
+                ? 'bg-[#27A468] text-white border-[2px] border-[#262320] border-b-[4px] border-b-[#166A3F] shadow-[0_2.5px_0_#262320] scale-105 -translate-y-1'
+                : 'text-[#61584F] hover:text-[#262320] hover:bg-[#F6EFE0]/60 active:scale-95'
             }`}
           >
-            <span className={`transition-transform ${isActive ? 'scale-110' : 'opacity-80'}`}>
-              <GameIcon
-                name={tab.icon}
-                size="md"
-              />
+            <span
+              className={`transition-transform duration-100 ${
+                isActive ? 'scale-110 drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)]' : 'group-hover:scale-105'
+              }`}
+            >
+              <GameIcon name={tab.icon} size="sm" />
             </span>
-            <span className="text-[11px] tracking-tight">{tab.label}</span>
-            {isActive && (
-              <span className="mt-0.5 h-1 w-6 rounded-full bg-[#087E78]" />
-            )}
+            <span
+              className={`mt-0.5 font-cartoon text-[11px] tracking-wide uppercase ${
+                isActive ? 'text-white drop-shadow-[0_1px_1px_#166A3F]' : 'text-[#61584F]'
+              }`}
+            >
+              {tab.label}
+            </span>
           </button>
         );
       })}
