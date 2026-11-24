@@ -10,22 +10,26 @@ export const HintModal = ({ hintText, isOpen, onClose }: HintModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
-      <div className="w-full max-w-sm rounded-2xl border-2 border-[#E9B949] bg-[#FFF5E6] p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
+      <div className="card-notebook relative w-full max-w-sm p-6 pt-7 shadow-[0_8px_0_#262320] animate-in fade-in zoom-in-95 duration-150">
+        <div className="scotch-tape" />
+
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E9B949]/30">
-            <GameIcon name="lightbulb" size="md" className="text-[#856404]" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl border-[2.5px] border-[#262320] bg-[#F5B229] shadow-[0_2.5px_0_#262320]">
+            <GameIcon name="lightbulb" size="md" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-[#173B3A]">Detective's Hint</h3>
-            <p className="text-xs text-[#F07868] font-semibold">
-              Using a hint forfeits the 10-point unassisted bonus
+            <span className="badge-cartoon-yellow text-[10px]">
+              DETECTIVE'S HINT
+            </span>
+            <p className="font-cartoon mt-0.5 text-xs text-[#E44949] tracking-wide">
+              USING A HINT FORFEITS THE 10-PT UNASSISTED BONUS
             </p>
           </div>
         </div>
 
-        <div className="my-5 rounded-xl border border-[#E8DCC8] bg-white p-4 shadow-xs">
-          <p className="text-sm font-medium leading-relaxed text-[#173B3A]">
+        <div className="my-4 rounded-xl border-[2px] border-[#262320] bg-[#F6EFE0] p-4 shadow-[inset_0_2px_4px_rgba(38,35,32,0.1)]">
+          <p className="font-body text-sm font-semibold italic leading-relaxed text-[#262320]">
             "{hintText}"
           </p>
         </div>
@@ -33,9 +37,9 @@ export const HintModal = ({ hintText, isOpen, onClose }: HintModalProps) => {
         <button
           type="button"
           onClick={onClose}
-          className="w-full cursor-pointer rounded-xl bg-[#087E78] py-2.5 text-center text-sm font-bold text-white shadow-md transition-all hover:bg-[#065C58] active:scale-98"
+          className="btn-cartoon-green flex h-12 w-full cursor-pointer items-center justify-center text-sm shadow-[0_4px_0_#262320]"
         >
-          Got it
+          <span>GOT IT, CONTINUE</span>
         </button>
       </div>
     </div>

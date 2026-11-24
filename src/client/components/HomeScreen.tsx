@@ -26,166 +26,189 @@ export const HomeScreen = ({
     return `${hours}h ${mins}m`;
   };
 
-  const getDifficultyColor = (diff: string) => {
+  const getDifficultyBadge = (diff: string) => {
     switch (diff) {
       case 'Easy':
-        return 'bg-[#E0F2F1] text-[#087E78] border-[#087E78]/30';
+        return 'bg-[#27A468] text-white border-b-[#176B41]';
       case 'Standard':
-        return 'bg-[#FFF3CD] text-[#856404] border-[#E9B949]/50';
+        return 'bg-[#F5B229] text-[#262320] border-b-[#B0700D]';
       case 'Challenging':
-        return 'bg-[#FCE8E6] text-[#D9534F] border-[#F07868]/40';
+        return 'bg-[#E44949] text-white border-b-[#961D1D]';
       default:
-        return 'bg-gray-100 text-gray-700 border-gray-300';
+        return 'bg-[#D6C7AE] text-[#262320] border-b-[#A8987E]';
     }
   };
 
   return (
     <div className="flex w-full flex-col p-4 pb-8">
-      {/* Header with Brand and Help */}
-      <div className="flex items-center justify-between border-b border-[#E8DCC8] pb-3">
+      {/* Brand Header */}
+      <div className="flex items-center justify-between border-b-[2.5px] border-[#262320] pb-3.5">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#087E78] shadow-sm">
-            <GameIcon name="magnifier" size="md" className="text-white" />
+          <div className="flex h-13 w-13 items-center justify-center rounded-2xl border-[2.5px] border-[#262320] border-b-[4.5px] border-b-[#166A3F] bg-[#27A468] shadow-[0_3px_0_#262320]">
+            <GameIcon name="magnifier" size="md" />
           </div>
           <div>
-            <h1 className="text-xl font-black tracking-tight text-[#173B3A]">
+            <h1 className="text-cartoon-shadow text-2xl text-white tracking-wider">
               CRACK THE CASE
             </h1>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-[#087E78]">
-              A New Mystery Every Day
-            </p>
+            <div className="mt-0.5">
+              <span className="ribbon-red-tape text-[10px]">
+                A NEW MYSTERY EVERY DAY
+              </span>
+            </div>
           </div>
         </div>
 
+        {/* How to Play / Help Button */}
         <button
           type="button"
           onClick={() => onNavigate('help')}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#E8DCC8] bg-white text-sm font-bold text-[#455653] shadow-2xs hover:border-[#087E78]"
+          className="btn-cartoon-cream flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-base shadow-[0_3px_0_#262320]"
           title="Help & Rules"
         >
-          <GameIcon name="help" size="sm" className="text-[#455653]" />
+          <GameIcon name="help" size="sm" />
         </button>
       </div>
 
-      {/* Player Career Card */}
-      <div className="my-4 flex items-center justify-between rounded-2xl border border-[#E8DCC8] bg-white p-4 shadow-xs">
+      {/* Player Career Dossier Card (Notebook style) */}
+      <div className="card-notebook my-4 flex items-center justify-between p-3.5 px-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFF5E6] border border-[#E8DCC8]">
-            <GameIcon name="fedora" size="md" className="text-[#087E78]" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl border-[2px] border-[#262320] bg-[#F6EFE0] shadow-[inset_0_2px_4px_rgba(38,35,32,0.1)]">
+            <GameIcon name="fedora" size="md" />
           </div>
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#087E78]">
+            <span className="font-cartoon text-[11px] uppercase tracking-wider text-[#27A468]">
               {profile.rank}
             </span>
-            <h3 className="text-sm font-black text-[#173B3A]">
+            <h3 className="font-cartoon text-sm text-[#262320] tracking-wide">
               {profile.username}
             </h3>
           </div>
         </div>
 
         <div className="flex flex-col items-end">
-          <span className="text-[10px] font-bold text-[#455653]">Current Streak</span>
-          <span className="flex items-center gap-1 text-base font-black text-[#F07868]">
-            <GameIcon name="flame" size="sm" className="text-[#F07868]" />
+          <span className="font-cartoon text-[10px] uppercase text-[#61584F] tracking-wider">
+            Streak
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-full border-[2px] border-[#262320] bg-[#FFF2DE] px-2.5 py-0.5 font-cartoon text-xs text-[#E44949] shadow-[0_1.5px_0_#262320]">
+            <GameIcon name="flame" size="xs" />
             <span>
-              {profile.currentStreak} {profile.currentStreak === 1 ? 'day' : 'days'}
+              {profile.currentStreak} {profile.currentStreak === 1 ? 'DAY' : 'DAYS'}
             </span>
           </span>
         </div>
       </div>
 
-      {/* Today's Case Card */}
-      <div className="mb-5 rounded-2xl border-2 border-[#087E78]/30 bg-white p-5 shadow-sm">
+      {/* Today's Case Card (Stacked Paper with Tape) */}
+      <div className="card-notebook paper-stack mb-5 p-5 pt-6 text-left">
+        {/* Top Scotch Tape */}
+        <div className="scotch-tape" />
+
+        {/* Case Badges */}
         <div className="flex items-center justify-between">
-          <span className="rounded-full bg-[#E0F2F1] px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-[#087E78]">
+          <span className="badge-cartoon-yellow text-[11px]">
             TODAY'S CASE
           </span>
           <span
-            className={`rounded-full border px-2 py-0.5 text-[11px] font-bold ${getDifficultyColor(
+            className={`inline-flex items-center gap-1 rounded-full border-[2px] border-[#262320] border-b-[3.5px] px-2.5 py-0.5 font-cartoon text-xs uppercase shadow-[0_1.5px_0_#262320] ${getDifficultyBadge(
               activeCase.difficulty
             )}`}
           >
-            {activeCase.difficulty}
+            <GameIcon name="star" size="xs" />
+            <span>{activeCase.difficulty}</span>
           </span>
         </div>
 
+        {/* Case Info */}
         <div className="mt-3">
-          <span className="text-xs font-bold text-[#455653]">
+          <span className="font-cartoon text-xs text-[#61584F] tracking-wider">
             CASE #{activeCase.caseNumber}
           </span>
-          <h2 className="text-lg font-black text-[#173B3A]">
+          <h2 className="text-cartoon-shadow mt-0.5 text-xl text-white tracking-wide">
             {activeCase.title}
           </h2>
-          <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[#455653]">
-            {activeCase.incident}
-          </p>
+          <div className="mt-2.5 rounded-xl border-[2px] border-[#262320] bg-[#F6EFE0] p-3 shadow-[inset_0_2px_4px_rgba(38,35,32,0.1)]">
+            <p className="line-clamp-3 font-body text-xs font-semibold leading-relaxed text-[#262320]">
+              {activeCase.incident}
+            </p>
+          </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between border-t border-[#E8DCC8]/60 pt-3 text-[11px] font-semibold text-[#455653]">
-          <span>Reset in: {formatCountdown(timeUntilResetSec)}</span>
-          <span>5-10 min session</span>
+        {/* Reset Countdown Bar */}
+        <div className="mt-3.5 flex items-center justify-between border-t-[2px] border-[#262320]/20 pt-2.5 font-cartoon text-[11px] text-[#61584F]">
+          <span className="flex items-center gap-1">
+            <GameIcon name="clock" size="xs" />
+            <span>RESET IN: {formatCountdown(timeUntilResetSec)}</span>
+          </span>
+          <span>⏱ 5-10 MIN SESSION</span>
         </div>
 
-        {/* Primary CTA */}
+        {/* Primary CTA (Chunky 3D Cartoon Buttons) */}
         <div className="mt-4">
           {caseStatus === 'solved' ? (
             <button
               type="button"
               onClick={onViewResults}
-              className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#087E78] font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
+              className="btn-cartoon-green flex h-13 w-full cursor-pointer items-center justify-center gap-2 text-base shadow-[0_5px_0_#262320]"
             >
-              <GameIcon name="trophy" size="sm" className="text-white" />
-              <span>View Results</span>
+              <GameIcon name="trophy" size="sm" />
+              <span>VIEW RESULTS</span>
             </button>
           ) : caseStatus === 'in_progress' ? (
             <button
               type="button"
               onClick={onStartOrResumeCase}
-              className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#E9B949] font-bold text-[#173B3A] shadow-md hover:bg-[#D4A338] active:scale-98"
+              className="btn-cartoon-yellow flex h-13 w-full cursor-pointer items-center justify-center gap-2 text-base shadow-[0_5px_0_#262320]"
             >
-              <GameIcon name="magnifier" size="sm" className="text-[#173B3A]" />
-              <span>Resume Case</span>
+              <GameIcon name="magnifier" size="sm" />
+              <span>RESUME CASE</span>
             </button>
           ) : (
             <button
               type="button"
               onClick={onStartOrResumeCase}
-              className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#087E78] font-bold text-white shadow-md hover:bg-[#065C58] active:scale-98"
+              className="btn-cartoon-green flex h-13 w-full cursor-pointer items-center justify-center gap-2 text-base shadow-[0_5px_0_#262320]"
             >
-              <GameIcon name="magnifier" size="sm" className="text-white" />
-              <span>Solve Case</span>
+              <GameIcon name="magnifier" size="sm" />
+              <span>SOLVE CASE</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* Quick Navigation Cards */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* Quick Navigation Cards (3 Chunky Cartoon Tiles like in the image) */}
+      <div className="grid grid-cols-3 gap-2.5">
         <button
           type="button"
           onClick={() => onNavigate('leaderboard')}
-          className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-[#E8DCC8] bg-white p-3 text-center shadow-2xs hover:border-[#087E78] active:scale-95"
+          className="btn-cartoon-cream flex cursor-pointer flex-col items-center justify-center rounded-xl p-3 text-center shadow-[0_4px_0_#262320] active:translate-y-1 active:shadow-none"
         >
-          <GameIcon name="trophy" size="md" className="text-[#087E78]" />
-          <span className="mt-1 text-xs font-bold text-[#173B3A]">Leaderboard</span>
+          <GameIcon name="trophy" size="md" />
+          <span className="mt-1 font-cartoon text-xs text-[#262320] tracking-wide">
+            LEADERBOARD
+          </span>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('stats')}
-          className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-[#E8DCC8] bg-white p-3 text-center shadow-2xs hover:border-[#087E78] active:scale-95"
+          className="btn-cartoon-cream flex cursor-pointer flex-col items-center justify-center rounded-xl p-3 text-center shadow-[0_4px_0_#262320] active:translate-y-1 active:shadow-none"
         >
-          <GameIcon name="chart" size="md" className="text-[#087E78]" />
-          <span className="mt-1 text-xs font-bold text-[#173B3A]">My Stats</span>
+          <GameIcon name="chart" size="md" />
+          <span className="mt-1 font-cartoon text-xs text-[#262320] tracking-wide">
+            MY STATS
+          </span>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('help')}
-          className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-[#E8DCC8] bg-white p-3 text-center shadow-2xs hover:border-[#087E78] active:scale-95"
+          className="btn-cartoon-cream flex cursor-pointer flex-col items-center justify-center rounded-xl p-3 text-center shadow-[0_4px_0_#262320] active:translate-y-1 active:shadow-none"
         >
-          <GameIcon name="help" size="md" className="text-[#087E78]" />
-          <span className="mt-1 text-xs font-bold text-[#173B3A]">How to Play</span>
+          <GameIcon name="help" size="md" />
+          <span className="mt-1 font-cartoon text-xs text-[#262320] tracking-wide">
+            HOW TO PLAY
+          </span>
         </button>
       </div>
     </div>
