@@ -52,16 +52,23 @@ async function main() {
 
   console.log('2. Syncing assets and webview files...');
   let syncAssetsResult;
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  for (let attempt = 1; attempt <= 6; attempt++) {
     try {
       const assetUploader = new AssetUploader(fakeCmd, 'crack-the-case', { verbose: true });
       syncAssetsResult = await assetUploader.syncAssets();
-      if (syncAssetsResult) break;
+      if (syncAssetsResult && syncAssetsResult.webViewAssetMap) {
+        const keys = Object.keys(syncAssetsResult.webViewAssetMap);
+        if (keys.includes('game.html') && keys.includes('splash.html')) {
+          console.log(`  Asset sync attempt ${attempt} succeeded with all assets!`);
+          break;
+        }
+      }
+      throw new Error('Incomplete webViewAssetMap returned');
     } catch (syncErr) {
       console.warn(`  Asset sync attempt ${attempt} failed: ${syncErr.message}`);
-      if (attempt === 3) throw syncErr;
-      console.log('  Retrying asset sync in 2 seconds...');
-      await new Promise((r) => setTimeout(r, 2000));
+      if (attempt === 6) throw syncErr;
+      console.log('  Retrying asset sync in 3 seconds...');
+      await new Promise((r) => setTimeout(r, 3000));
     }
   }
 
