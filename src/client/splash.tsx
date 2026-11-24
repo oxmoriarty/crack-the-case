@@ -69,10 +69,6 @@ export const Splash = () => {
           <GameIcon name="magnifier" size="sm" />
           <span>BEGIN INVESTIGATION</span>
         </button>
-
-        <p className="mt-3 font-cartoon text-[11px] text-[#61584F] tracking-wide">
-          ONE SHARED CASE PER DAY ACROSS REDDIT
-        </p>
       </div>
     </div>
   );

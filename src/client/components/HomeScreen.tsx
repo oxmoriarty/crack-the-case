@@ -140,7 +140,7 @@ export const HomeScreen = ({
             <GameIcon name="clock" size="xs" />
             <span>RESET IN: {formatCountdown(timeUntilResetSec)}</span>
           </span>
-          <span>⏱ 5-10 MIN SESSION</span>
+          <span>⏱ 5-10 MIN</span>
         </div>
 
         {/* Primary CTA (Chunky 3D Cartoon Buttons) */}

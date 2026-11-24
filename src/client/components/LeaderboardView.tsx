@@ -10,7 +10,7 @@ interface LeaderboardViewProps {
 
 export const LeaderboardView = ({
   profile,
-  caseNumber,
+  caseNumber: _caseNumber,
   onBack,
 }: LeaderboardViewProps) => {
   const [activeTab, setActiveTab] = useState<'daily' | 'general'>('daily');
@@ -27,7 +27,7 @@ export const LeaderboardView = ({
           <span>← BACK</span>
         </button>
         <h2 className="text-cartoon-shadow text-xl text-white tracking-wide">
-          SUBREDDIT STANDINGS
+          LEADERBOARD
         </h2>
         <div className="w-16" />
       </div>
@@ -43,7 +43,7 @@ export const LeaderboardView = ({
               : 'btn-cartoon-cream shadow-[0_2.5px_0_#262320]'
           }`}
         >
-          CASE #{caseNumber} DAILY
+          DAILY LEADERBOARD
         </button>
 
         <button
@@ -55,15 +55,8 @@ export const LeaderboardView = ({
               : 'btn-cartoon-cream shadow-[0_2.5px_0_#262320]'
           }`}
         >
-          HALL OF FAME
+          ALL TIME LEADERBOARD
         </button>
-      </div>
-
-      {/* Subreddit Standings Note */}
-      <div className="card-notebook mb-4 p-3.5 shadow-[0_3px_0_#262320]">
-        <p className="font-body text-xs font-semibold leading-relaxed text-[#262320]">
-          Standings are isolated to this subreddit installation. Top 100 detectives ranked by score, solve time, and earliest submission.
-        </p>
       </div>
 
       {/* Current Player Rank Card */}
@@ -103,8 +96,8 @@ export const LeaderboardView = ({
         </div>
         <h4 className="font-cartoon text-base text-[#262320] tracking-wide">
           {activeTab === 'daily'
-            ? `CASE #${caseNumber} DAILY LEADERBOARD`
-            : 'SUBREDDIT ALL-TIME LEADERBOARD'}
+            ? 'DAILY LEADERBOARD'
+            : 'ALL TIME LEADERBOARD'}
         </h4>
         <div className="mt-2 rounded-xl border-[2px] border-[#262320] bg-[#F6EFE0] p-3 shadow-[inset_0_2px_4px_rgba(38,35,32,0.1)]">
           <p className="font-body text-xs font-semibold leading-relaxed text-[#61584F]">
