@@ -182,7 +182,7 @@ export const VerdictForm = ({
         ) : (
           <span className="flex items-center gap-2">
             <GameIcon name="scale" size="sm" />
-            <span>SUBMIT OFFICIAL VERDICT</span>
+            <span>SUBMIT VERDICT</span>
           </span>
         )}
       </button>

@@ -19,9 +19,6 @@ export const SuspectCards = ({ suspects }: SuspectCardsProps) => {
             <h2 className="text-cartoon-shadow text-xl text-white tracking-wide">
               SUSPECT STATEMENTS
             </h2>
-            <p className="font-cartoon text-xs text-[#61584F] tracking-wider">
-              READ EACH SUSPECT'S TESTIMONY CAREFULLY
-            </p>
           </div>
         </div>
         <span className="badge-cartoon-yellow text-xs">

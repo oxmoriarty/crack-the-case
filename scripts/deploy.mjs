@@ -19,10 +19,12 @@ async function main() {
   if (!tokenInfo) {
     throw new Error('No saved Devvit token found. Please run npx devvit login.');
   }
-  if (!tokenInfo.token.isFresh()) {
-    console.log('  Refreshing expired auth token...');
+  // Proactively refresh token if not fresh or within 12 hours of expiry
+  const msRemaining = tokenInfo.token.expiresAt.getTime() - Date.now();
+  if (!tokenInfo.token.isFresh() || msRemaining < 12 * 60 * 60 * 1000) {
+    console.log('  Proactively refreshing Devvit auth token...');
     await authSvc.refreshStoredToken(tokenInfo.token.refreshToken, Boolean(tokenInfo.copyPaste));
-    console.log('  Token refreshed and valid!');
+    console.log('  Token refreshed successfully!');
   } else {
     console.log('  Token is fresh and valid!');
   }
