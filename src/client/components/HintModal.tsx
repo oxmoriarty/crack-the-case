@@ -19,12 +19,9 @@ export const HintModal = ({ hintText, isOpen, onClose }: HintModalProps) => {
             <GameIcon name="lightbulb" size="md" />
           </div>
           <div>
-            <span className="badge-cartoon-yellow text-[10px]">
-              DETECTIVE'S HINT
+            <span className="badge-cartoon-yellow text-xs">
+              HINT
             </span>
-            <p className="font-cartoon mt-0.5 text-xs text-[#E44949] tracking-wide">
-              USING A HINT FORFEITS THE 10-PT UNASSISTED BONUS
-            </p>
           </div>
         </div>
 

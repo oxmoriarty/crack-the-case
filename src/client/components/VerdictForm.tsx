@@ -37,9 +37,6 @@ export const VerdictForm = ({
             <h2 className="text-cartoon-shadow text-xl text-white tracking-wide">
               SUBMIT YOUR VERDICT
             </h2>
-            <p className="font-cartoon text-xs text-[#61584F] tracking-wider">
-              SELECT THE CULPRIT AND THE SINGLE DECISIVE CLUE
-            </p>
           </div>
         </div>
       </div>
